@@ -2,9 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import data from "../../data";
 
 const initialState = {
-  data: data.slice(0, 14),
+  data: data.slice(0, 10),
   usedData: [],
-  question: { text: "", question: "", answers: [] },
+  question: { text: "", object: "", answers: [] },
+  topic: [
+    { object: "name", subject: "capital" },
+    { object: "name", subject: "region" },
+    { object: "capital", subject: "name" },
+  ],
 };
 
 const engineSlice = createSlice({
@@ -14,7 +19,7 @@ const engineSlice = createSlice({
     clearUsedData: (state) => {
       state.usedData.length = 0;
     },
-    firstUsedData: (state, action) => {
+    oneItemToUsedData: (state, action) => {
       state.usedData = [action.payload];
     },
     spreadToUsedData: (state, action) => {
@@ -31,16 +36,24 @@ const engineSlice = createSlice({
         return 0.5 - Math.random();
       });
     },
+    setQuestionText: (state, action) => {
+      state.question.text = action.payload;
+    },
+    setQuestionObject: (state, action) => {
+      state.question.object = action.payload;
+    },
   },
 });
 
 export const {
   clearUsedData,
-  firstUsedData,
+  oneItemToUsedData,
   spreadToUsedData,
   spreadToAnswers,
   pushToAnswers,
   randomizeAnswers,
+  setQuestionText,
+  setQuestionObject,
 } = engineSlice.actions;
 
 export default engineSlice.reducer;

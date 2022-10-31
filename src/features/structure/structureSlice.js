@@ -10,16 +10,16 @@ const structureSlice = createSlice({
   name: "structure",
   initialState,
   reducers: {
-    setStart: (state, bool) => {
-      state.start = bool.payload;
+    setStart: (state, action) => {
+      state.start = action.payload;
     },
 
-    setMain: (state, bool) => {
-      state.main = bool.payload;
+    setMain: (state, action) => {
+      state.main = action.payload;
     },
 
-    setFinish: (state, bool) => {
-      state.finish = bool.payload;
+    setFinish: (state, action) => {
+      state.finish = action.payload;
     },
   },
 });

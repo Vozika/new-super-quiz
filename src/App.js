@@ -1,22 +1,43 @@
 import "./App.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { interfaceEN } from "./interface";
 import Start from "./components/start/Start";
 import Answers from "./components/answers/Answers";
+import Counter from "./components/counter/Counter";
+import Question from "./components/question/Question";
+import Finish from "./components/finish/Finish";
 
 import {
-  firstUsedData,
+  oneItemToUsedData,
   spreadToUsedData,
   spreadToAnswers,
   pushToAnswers,
   randomizeAnswers,
+  setQuestionText,
+  setQuestionObject,
 } from "./features/engine/engineSlice";
+
+import {
+  setScore,
+  setRightAnswer,
+  setWrongAnswer,
+  setCurrentQuestion,
+} from "./features/score/scoreSlice";
+
+import { setMain, setFinish } from "./features/structure/structureSlice";
+
+import { setIsButtonClicked } from "./features/utilities/utilitiesSlice";
 
 function App() {
   const dispatch = useDispatch();
   const { start, main, finish } = useSelector((store) => store.structure);
   const { data, question, usedData } = useSelector((store) => store.engine);
-  // const [usedData, setUsedData] = useState([]);
+  const { isButtonClicked } = useSelector((store) => store.utilities);
+  const { currentQuestion } = useSelector((store) => store.score);
+  const { numberOfQuestions, interfaceText } = useSelector(
+    (store) => store.options
+  );
 
   // Standart function for a random number
   function getRandom(a) {
@@ -32,13 +53,13 @@ function App() {
       data.slice(randomNumber, randomNumber + 1)[0]
     );
     itemFromData.isCorrect = true;
-
+    console.log(Object.keys(itemFromData)[2]);
     return itemFromData;
   }
 
   function firstSlice() {
     const itemFromData = sliceItemFromData();
-    dispatch(firstUsedData(itemFromData));
+    dispatch(oneItemToUsedData(itemFromData));
   }
 
   //Checks if the usedData array already has an object, that has been used before in question
@@ -55,7 +76,8 @@ function App() {
     }
   }
 
-  function answers() {
+  //Makes an array of 3 false answers plus one true
+  function setAnswers() {
     const wrongAnswers = [];
 
     while (wrongAnswers.length < 3) {
@@ -71,7 +93,7 @@ function App() {
         itemFromData.isCorrect = false;
         wrongAnswers.push(itemFromData);
       } else {
-        answers();
+        setAnswers();
       }
     }
     dispatch(spreadToAnswers(wrongAnswers));
@@ -79,13 +101,55 @@ function App() {
     dispatch(randomizeAnswers());
   }
 
+  function setQuestion() {
+    dispatch(setQuestionText(interfaceEN.QUESTION_TEXT));
+    dispatch(
+      setQuestionObject(usedData[usedData.length - 1].name.translations.en)
+    );
+  }
+
+  function answerClicked(isCorrect) {
+    if (!isButtonClicked) {
+      if (isCorrect) {
+        dispatch(setScore());
+        dispatch(setRightAnswer());
+      } else {
+        dispatch(setWrongAnswer());
+      }
+    }
+    dispatch(setIsButtonClicked(true));
+    quiz();
+  }
+
+  function refreshUsedData() {
+    if (usedData.length === data.length) {
+      dispatch(oneItemToUsedData(usedData[usedData.length - 1]));
+    }
+  }
+
+  function finishQuiz() {
+    if (currentQuestion === numberOfQuestions) {
+      dispatch(setMain(false));
+      dispatch(setFinish(true));
+      return;
+    }
+  }
+
   useEffect(() => {
     firstSlice();
   }, []);
 
+  useEffect(() => {
+    refreshUsedData();
+  }, [usedData]);
+
   function quiz() {
+    finishQuiz();
+    dispatch(setCurrentQuestion());
+    dispatch(setIsButtonClicked(false));
     checkUsedData();
-    answers();
+    setAnswers();
+    setQuestion();
   }
 
   function startQuiz() {
@@ -93,11 +157,17 @@ function App() {
   }
 
   console.log(usedData);
-
+  console.log(data.length);
   return (
     <div className="App">
       {start && <Start startQuiz={startQuiz} />}
-      {main && <Answers startQuiz={startQuiz} />}
+      {main && (
+        <>
+          <Question />
+          <Answers answerClicked={answerClicked} /> <Counter />
+        </>
+      )}
+      {finish && <Finish />}
     </div>
   );
 }
