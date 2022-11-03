@@ -1,11 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { interfaceEN } from "../../interface";
+import data from "../../data";
 
 const initialState = {
   show5050: false,
   flip: false,
   lessAnswers: false,
-  numberOfQuestions: 10,
+  numberOfQuestions: {
+    current: 10,
+    options: [5, 10, 15, data.length] 
+  },
   numberOfAnswers: 4,
   ironMan: false,
   ironManModal: false,
@@ -21,94 +25,74 @@ const optionsSlice = createSlice({
   name: "options",
   initialState,
   reducers: {
-    setShow5050: (state) => {
+    switchShow5050: (state) => {
       state.show5050 = !state.show5050;
     },
-    setShow5050False: (state) => {
-      state.show5050 = false;
+    setShow5050: (state, action) => {
+      state.show5050 = action.payload;
     },
-    setLessAnswers: (state) => {
+    switchLessAnswers: (state) => {
       state.lessAnswers = !state.lessAnswers;
     },
-    setLessAnswersFalse: (state) => {
-      state.lessAnswers = false;
+    setLessAnswers: (state, action) => {
+      state.lessAnswers = action.payload;
     },
-    setFlip: (state) => {
+    switchFlip: (state) => {
       state.flip = !state.flip;
     },
-    setFlipFalse: (state) => {
-      state.flip = false;
+    setFlip: (state, action) => {
+      state.flip = action.payload;
     },
-    setNumberOfQuestions: (state, number) => {
-      state.numberOfQuestions = number.payload;
+    setNumberOfQuestions: (state, action) => {
+      state.numberOfQuestions.current = action.payload;
     },
-    setIronManTrue: (state) => {
-      state.ironMan = true;
+    setIronMan: (state, action) => {
+      state.ironMan = action.payload;
     },
-    setIronManFalse: (state) => {
-      state.ironMan = false;
+    setIronManModal: (state, action) => {
+      state.ironManModal = action.payload;
     },
-    setIronManModalTrue: (state) => {
-      state.ironManModal = true;
-    },
-    setIronManModalFalse: (state) => {
-      state.ironManModal = false;
-    },
-    setHideLetters: (state) => {
+    switchHideLetters: (state) => {
       state.hideLetters = !state.hideLetters;
     },
-    setHideLettersFalse: (state) => {
-      state.hideLetters = false;
+    setHideLetters: (state, action) => {
+      state.hideLetters = action.payload;
     },
-    setInterfaceText: (state, lang) => {
-      state.interfaceText = lang.payload;
+    setInterfaceText: (state, action) => {
+      state.interfaceText = action.payload;
     },
-    setRUTrue: (state) => {
-      state.RU = true;
+    setRU: (state, action) => {
+      state.RU = action.payload;
     },
-    setRUFalse: (state) => {
-      state.RU = false;
-    },
-    setRU: (state) => {
+    switchRU: (state) => {
       state.RU = !state.RU;
     },
-    setStatisticsTrue: (state) => {
-      state.statistics = true;
+    setStatistics: (state, action) => {
+      state.statistics = action.payload;
     },
-    setStatisticsFalse: (state) => {
-      state.statistics = false;
+    setOptions: (state, action) => {
+      state.options = action.payload;
     },
-    setOptionsTrue: (state) => {
-      state.options = true;
-    },
-    setOptionsFalse: (state) => {
-      state.options = false;
-    }
   },
 });
 
 export const {
+  switchShow5050,
   setShow5050,
-  setShow5050False,
+  switchLessAnswers,
   setLessAnswers,
-  setLessAnswersFalse,
+  switchFlip,
   setFlip,
-  setFlipFalse,
   setNumberOfQuestions,
-  setIronManTrue,
-  setIronManFalse,
-  setIronManModalTrue,
-  setIronManModalFalse,
+  setIronMan,
+  setIronManModal,
+  switchHideLetters,
   setHideLetters,
-  setHideLettersFalse,
-  setRUTrue,
-  setRUFalse,
-  setRU,
   setInterfaceText,
-  setStatisticsTrue,
-  setStatisticsFalse,
-  setOptionsTrue,
-  setOptionsFalse
+  setRU,
+  switchRU,
+  setStatistics,
+  setOptions,
 } = optionsSlice.actions;
 
 export default optionsSlice.reducer;

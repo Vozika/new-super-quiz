@@ -14,7 +14,7 @@ const Question = () => {
     <div>
       <Chip
         variant="outlined"
-        label={`${currentQuestion} ${interfaceText.OUT_OF} ${numberOfQuestions}`}
+        label={`${currentQuestion} ${interfaceText.OUT_OF} ${numberOfQuestions.current}`}
       />
       <Typography variant="h4">{question.text}</Typography>
       <Typography variant="h4" sx={{ marginTop: 1 }}>

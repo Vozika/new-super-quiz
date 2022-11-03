@@ -1,5 +1,5 @@
 export const interfaceEN = {
-  MAIN_TITLE: "Capital Quiz 2.0",
+  MAIN_TITLE: "Capital Quiz 3.0",
   OPTIONS: "Options",
   IRON_MAN_MODE: "Iron Man Mode",
   IRON_MAN_MODE_DESC: "195 questions. 50/50 doesn't work. One wrong answer and you lose. How long can you stand?",
@@ -37,7 +37,7 @@ export const interfaceEN = {
 };
 
 export const interfaceRU = {
-  MAIN_TITLE: "Столица Квиз 2.0",
+  MAIN_TITLE: "Столица Квиз 3.0",
   OPTIONS: "Настройки",
   IRON_MAN_MODE: "Железные Яйца",
   IRON_MAN_MODE_DESC: "195 вопросов. 50/50 не работает. Одна ошибка и проигрыш. Сколько сможете продержаться?",

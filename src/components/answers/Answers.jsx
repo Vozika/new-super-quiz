@@ -6,8 +6,7 @@ import Button from "@mui/material/Button";
 
 const Answers = ({ answerClicked }) => {
   const dispatch = useDispatch();
-  const { question, usedData } = useSelector((store) => store.engine);
-  const { start, main, finish } = useSelector((store) => store.structure);
+  const { question } = useSelector((store) => store.engine);
 
   return (
     <div>

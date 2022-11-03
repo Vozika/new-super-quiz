@@ -23,11 +23,21 @@ import {
   setRightAnswer,
   setWrongAnswer,
   setCurrentQuestion,
+  clearScore,
+  clearCurrentQuestion,
+  clearRightAnswer,
+  clearWrongAnswer,
 } from "./features/score/scoreSlice";
 
-import { setMain, setFinish } from "./features/structure/structureSlice";
+import {
+  setMain,
+  setFinish,
+  setStart,
+} from "./features/structure/structureSlice";
 
 import { setIsButtonClicked } from "./features/utilities/utilitiesSlice";
+
+import Button from "@mui/material/Button";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +45,7 @@ function App() {
   const { data, question, usedData } = useSelector((store) => store.engine);
   const { isButtonClicked } = useSelector((store) => store.utilities);
   const { currentQuestion } = useSelector((store) => store.score);
-  const { numberOfQuestions, interfaceText } = useSelector(
+  const { numberOfQuestions, interfaceText, numberOfAnswers } = useSelector(
     (store) => store.options
   );
 
@@ -80,7 +90,7 @@ function App() {
   function setAnswers() {
     const wrongAnswers = [];
 
-    while (wrongAnswers.length < 3) {
+    while (wrongAnswers.length < numberOfAnswers - 1) {
       const randomNumber = getRandom(data.length);
       const itemFromData = structuredClone(
         data.slice(randomNumber, randomNumber + 1)[0]
@@ -128,11 +138,33 @@ function App() {
   }
 
   function finishQuiz() {
-    if (currentQuestion === numberOfQuestions) {
+    if (currentQuestion === numberOfQuestions.current && main) {
       dispatch(setMain(false));
       dispatch(setFinish(true));
       return;
     }
+  }
+
+  function clearAllScores() {
+    dispatch(clearCurrentQuestion());
+    dispatch(clearRightAnswer());
+    dispatch(clearWrongAnswer());
+    dispatch(clearScore());
+  }
+
+  function playAgain() {
+    clearAllScores();
+    dispatch(setFinish(false));
+    dispatch(setMain(true));
+
+    quiz();
+  }
+
+  function backToStart() {
+    clearAllScores();
+    main && dispatch(setMain(false));
+    finish && dispatch(setFinish(false));
+    dispatch(setStart(true));
   }
 
   useEffect(() => {
@@ -156,8 +188,6 @@ function App() {
     quiz();
   }
 
-  console.log(usedData);
-  console.log(data.length);
   return (
     <div className="App">
       {start && <Start startQuiz={startQuiz} />}
@@ -165,9 +195,12 @@ function App() {
         <>
           <Question />
           <Answers answerClicked={answerClicked} /> <Counter />
+          <Button variant="contained" onClick={() => backToStart()}>
+            {interfaceText.BACK_TO_START}
+          </Button>
         </>
       )}
-      {finish && <Finish />}
+      {finish && <Finish playAgain={playAgain} backToStart={backToStart} />}
     </div>
   );
 }

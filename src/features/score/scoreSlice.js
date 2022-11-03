@@ -18,22 +18,22 @@ const scoreSlice = createSlice({
       state.wrongAnswer = state.wrongAnswer + 1;
     },
     clearRightAnswer: (state) => {
-      state.rightAnswer = 0;
+      state.rightAnswer = initialState.rightAnswer;
     },
     clearWrongAnswer: (state) => {
-      state.wrongAnswer = 0;
+      state.wrongAnswer = initialState.wrongAnswer;
     },
     setCurrentQuestion: (state) => {
       state.currentQuestion = state.currentQuestion + 1;
     },
     clearCurrentQuestion: (state) => {
-      state.currentQuestion = 0;
+      state.currentQuestion = initialState.currentQuestion;
     },
     setScore: (state) => {
       state.score = state.score + 1;
     },
     clearScore: (state) => {
-      state.score = 0;
+      state.score = initialState.score;
     },
   },
 });

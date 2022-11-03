@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import data from "../../data";
 
 const initialState = {
-  data: data.slice(0, 10),
+  data: data,
   usedData: [],
   question: { text: "", object: "", answers: [] },
   topic: [
