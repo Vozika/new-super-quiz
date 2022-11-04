@@ -17,6 +17,7 @@ const initialState = {
   interfaceText: { ...interfaceEN },
   RU: false,
   EN: true,
+  translations: "",
   statistics: false,
   options: false,
 };
@@ -73,6 +74,9 @@ const optionsSlice = createSlice({
     setOptions: (state, action) => {
       state.options = action.payload;
     },
+    setTranslations: (state, action) => {
+      state.translations = action.payload;
+    },
   },
 });
 
@@ -93,6 +97,7 @@ export const {
   switchRU,
   setStatistics,
   setOptions,
+  setTranslations,
 } = optionsSlice.actions;
 
 export default optionsSlice.reducer;

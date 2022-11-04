@@ -5,7 +5,7 @@ const initialState = {
   data: data,
   usedData: [],
   question: { text: "", object: "", answers: [] },
-  subject: "capital"
+  subject: "capital",
 };
 
 const engineSlice = createSlice({
@@ -43,7 +43,7 @@ const engineSlice = createSlice({
     },
     setSubject: (state, action) => {
       state.subject = action.payload;
-    }
+    },
   },
 });
 

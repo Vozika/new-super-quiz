@@ -7,6 +7,8 @@ import {
   setModal,
 } from "../../features/structure/structureSlice";
 
+import { switchRU } from "../../features/options/optionsSlice";
+
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
@@ -18,6 +20,9 @@ const Start = ({ startQuiz }) => {
   const { interfaceText } = useSelector((store) => store.options);
   const { modal } = useSelector((store) => store.structure);
   const dispatch = useDispatch();
+
+
+
   return (
     <div>
       <Typography variant="h1">{interfaceText.MAIN_TITLE}</Typography>
@@ -57,6 +62,14 @@ const Start = ({ startQuiz }) => {
         }}
       >
         {interfaceText.OPTIONS}
+      </Button>
+      <Button
+        variant="outlined"
+        onClick={() => {
+          dispatch(switchRU(true));
+        }}
+      >
+        {interfaceText.CHANGE_LANGUAGE}
       </Button>
     </div>
   );

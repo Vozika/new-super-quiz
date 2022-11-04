@@ -2,6 +2,7 @@ import "./App.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { interfaceEN } from "./interface";
+import { interfaceRU } from "./interface";
 import Start from "./components/start/Start";
 import Answers from "./components/answers/Answers";
 import Counter from "./components/counter/Counter";
@@ -36,7 +37,11 @@ import {
   setStart,
 } from "./features/structure/structureSlice";
 
-import { setLessAnswers } from "./features/options/optionsSlice";
+import {
+  setLessAnswers,
+  setInterfaceText,
+  setTranslations,
+} from "./features/options/optionsSlice";
 
 import { setIsButtonClicked } from "./features/utilities/utilitiesSlice";
 
@@ -46,9 +51,13 @@ function App() {
   const { data, usedData, subject } = useSelector((store) => store.engine);
   const { isButtonClicked } = useSelector((store) => store.utilities);
   const { currentQuestion } = useSelector((store) => store.score);
-  const { numberOfQuestions, numberOfAnswers } = useSelector(
-    (store) => store.options
-  );
+  const {
+    numberOfQuestions,
+    numberOfAnswers,
+    interfaceText,
+    RU,
+    translations,
+  } = useSelector((store) => store.options);
 
   // Standart function for a random number
   function getRandom(a) {
@@ -145,10 +154,14 @@ function App() {
   }
 
   function setQuestion() {
-    dispatch(setQuestionText(interfaceEN.QUESTION_TEXT));
+    dispatch(setQuestionText(interfaceText.QUESTION_TEXT));
     dispatch(
-      setQuestionObject(usedData[usedData.length - 1].name.translations.en)
+      setQuestionObject(
+        usedData[usedData.length - 1].name.translations[translations]
+      )
     );
+    console.log(usedData[usedData.length - 1].name[translations]);
+    console.log(usedData[usedData.length - 1].name);
   }
 
   function answerClicked(isCorrect) {
@@ -207,6 +220,20 @@ function App() {
   useEffect(() => {
     firstSlice();
   }, []);
+
+  useEffect(() => {
+    if (!RU) {
+      dispatch(setInterfaceText(interfaceEN));
+      dispatch(setTranslations("en"));
+    }
+  });
+
+  useEffect(() => {
+    if (RU) {
+      dispatch(setInterfaceText(interfaceRU));
+      dispatch(setTranslations("ru"));
+    }
+  });
 
   useEffect(() => {
     refreshUsedData();
