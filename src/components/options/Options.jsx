@@ -22,7 +22,7 @@ import {
   setNumberOfQuestions,
   setFlip,
   switchShow5050,
-  setHideLetters,
+  switchHideLetters,
   setOptions,
 } from "../../features/options/optionsSlice";
 
@@ -47,10 +47,9 @@ const style = {
 
 const Options = ({ startQuiz }) => {
   const dispatch = useDispatch();
-  const { data } = useSelector((store) => store.engine);
-  const { interfaceText, numberOfQuestions, show5050 } = useSelector(
-    (store) => store.options
-  );
+
+  const { interfaceText, numberOfQuestions, show5050, hideLetters } =
+    useSelector((store) => store.options);
 
   return (
     <Box sx={style}>
@@ -117,6 +116,7 @@ const Options = ({ startQuiz }) => {
               {numberOfQuestions.options.map((option) => {
                 return (
                   <FormControlLabel
+                    key={option}
                     value={option}
                     control={<Radio />}
                     label={option}
@@ -131,28 +131,7 @@ const Options = ({ startQuiz }) => {
               })}
             </RadioGroup>
 
-            <Divider sx={{ margin: "0.5em 0" }} />
-
-            <FormControlLabel
-              sx={{
-                margin: 0,
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: "1.2rem",
-                fontWeight: "bold",
-              }}
-              disableTypography
-              control={<Checkbox />}
-              label={interfaceText.FLIP}
-              onChange={() => {
-                dispatch(setFlip());
-              }}
-            />
-            <Typography sx={{ fontSize: "1rem", marginBottom: 0 }}>
-              {interfaceText.FLIP_DESC}
-            </Typography>
-
-            <Divider sx={{ margin: "0.7em 0" }} />
+            <Divider sx={{ margin: 0 }} />
 
             <FormControlLabel
               sx={{
@@ -172,7 +151,7 @@ const Options = ({ startQuiz }) => {
               {interfaceText.SHOW5050_DESC}
             </Typography>
 
-            <Divider sx={{ margin: "0.7em 0" }} />
+            <Divider sx={{ margin: 0 }} />
 
             <FormControlLabel
               sx={{
@@ -185,7 +164,8 @@ const Options = ({ startQuiz }) => {
               disableTypography
               control={<Checkbox />}
               label={interfaceText.HIDE_LETTERS}
-              onChange={() => dispatch(setHideLetters())}
+              checked={hideLetters ? true : false}
+              onChange={() => dispatch(switchHideLetters())}
             />
             <Typography sx={{ fontSize: "1rem", marginBottom: 0 }}>
               {interfaceText.HIDE_LETTERS_DESC}

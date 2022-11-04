@@ -5,11 +5,7 @@ const initialState = {
   data: data,
   usedData: [],
   question: { text: "", object: "", answers: [] },
-  topic: [
-    { object: "name", subject: "capital" },
-    { object: "name", subject: "region" },
-    { object: "capital", subject: "name" },
-  ],
+  subject: "capital"
 };
 
 const engineSlice = createSlice({
@@ -42,6 +38,12 @@ const engineSlice = createSlice({
     setQuestionObject: (state, action) => {
       state.question.object = action.payload;
     },
+    setQuestionColor: (state, action) => {
+      state.question.answers[action.payload].color = true;
+    },
+    setSubject: (state, action) => {
+      state.subject = action.payload;
+    }
   },
 });
 
@@ -54,6 +56,7 @@ export const {
   randomizeAnswers,
   setQuestionText,
   setQuestionObject,
+  setQuestionColor,
 } = engineSlice.actions;
 
 export default engineSlice.reducer;

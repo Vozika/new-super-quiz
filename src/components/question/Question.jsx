@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 const Question = () => {
   const { question } = useSelector((store) => store.engine);
   const { currentQuestion } = useSelector((store) => store.score);
-  const { numberOfQuestions, flip, interfaceText } = useSelector(
+  const { numberOfQuestions, interfaceText } = useSelector(
     (store) => store.options
   );
 

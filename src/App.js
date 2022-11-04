@@ -7,6 +7,7 @@ import Answers from "./components/answers/Answers";
 import Counter from "./components/counter/Counter";
 import Question from "./components/question/Question";
 import Finish from "./components/finish/Finish";
+import Buttons from "./components/buttons/Buttons";
 
 import {
   oneItemToUsedData,
@@ -35,17 +36,17 @@ import {
   setStart,
 } from "./features/structure/structureSlice";
 
-import { setIsButtonClicked } from "./features/utilities/utilitiesSlice";
+import { setLessAnswers } from "./features/options/optionsSlice";
 
-import Button from "@mui/material/Button";
+import { setIsButtonClicked } from "./features/utilities/utilitiesSlice";
 
 function App() {
   const dispatch = useDispatch();
   const { start, main, finish } = useSelector((store) => store.structure);
-  const { data, question, usedData } = useSelector((store) => store.engine);
+  const { data, usedData, subject } = useSelector((store) => store.engine);
   const { isButtonClicked } = useSelector((store) => store.utilities);
   const { currentQuestion } = useSelector((store) => store.score);
-  const { numberOfQuestions, interfaceText, numberOfAnswers } = useSelector(
+  const { numberOfQuestions, numberOfAnswers } = useSelector(
     (store) => store.options
   );
 
@@ -53,6 +54,18 @@ function App() {
   function getRandom(a) {
     const randomNumber = Math.floor(Math.random() * a);
     return randomNumber;
+  }
+
+  //This is a more complex solution, but I decided to use it just for education and experience:-)
+  //Sets propety named 'color' for object that goes to question.answers
+  //For making different color buttons in Answers.jsx
+  function propetyUsingObject(object) {
+    Object.defineProperties(object, {
+      color: {
+        value: false,
+        writable: true,
+      },
+    });
   }
 
   // Chooses randomly an object from the data array which will be the object of the question
@@ -63,12 +76,15 @@ function App() {
       data.slice(randomNumber, randomNumber + 1)[0]
     );
     itemFromData.isCorrect = true;
-    console.log(Object.keys(itemFromData)[2]);
+    propetyUsingObject(itemFromData);
+
     return itemFromData;
   }
 
   function firstSlice() {
     const itemFromData = sliceItemFromData();
+
+    propetyUsingObject(itemFromData);
     dispatch(oneItemToUsedData(itemFromData));
   }
 
@@ -89,23 +105,40 @@ function App() {
   //Makes an array of 3 false answers plus one true
   function setAnswers() {
     const wrongAnswers = [];
+    console.log(wrongAnswers);
 
-    while (wrongAnswers.length < numberOfAnswers - 1) {
-      const randomNumber = getRandom(data.length);
-      const itemFromData = structuredClone(
-        data.slice(randomNumber, randomNumber + 1)[0]
-      );
+    function wrong() {
+      while (wrongAnswers.length < numberOfAnswers - 1) {
+        const randomNumber = getRandom(data.length);
+        const itemFromData = structuredClone(
+          data.slice(randomNumber, randomNumber + 1)[0]
+        );
 
-      if (
-        itemFromData.id !== usedData[usedData.length - 1].id &&
-        wrongAnswers.find((item) => item.id === itemFromData.id) === undefined
-      ) {
-        itemFromData.isCorrect = false;
-        wrongAnswers.push(itemFromData);
-      } else {
-        setAnswers();
+        if (
+          // itemFromData.id !== usedData[usedData.length - 1].id &&
+          itemFromData[subject].translations.en !==
+            usedData[usedData.length - 1][subject].translations.en &&
+          wrongAnswers.find(
+            (item) =>
+              item[subject].translations.en ===
+              itemFromData[subject].translations.en
+          ) === undefined
+        ) {
+          itemFromData.isCorrect = false;
+          propetyUsingObject(itemFromData);
+          wrongAnswers.push(itemFromData);
+        } else {
+          wrong();
+        }
       }
     }
+    wrong();
+    console.log(wrongAnswers);
+
+    // Sets 2 wrong answers to hide when show5050 (in options) and lessAnswers (buttons) are active
+    wrongAnswers[0].toHide = true;
+    wrongAnswers[1].toHide = true;
+
     dispatch(spreadToAnswers(wrongAnswers));
     dispatch(pushToAnswers(usedData[usedData.length - 1]));
     dispatch(randomizeAnswers());
@@ -127,8 +160,11 @@ function App() {
         dispatch(setWrongAnswer());
       }
     }
+    setTimeout(() => {
+      dispatch(setLessAnswers(false));
+      quiz();
+    }, 900);
     dispatch(setIsButtonClicked(true));
-    quiz();
   }
 
   function refreshUsedData() {
@@ -150,6 +186,7 @@ function App() {
     dispatch(clearRightAnswer());
     dispatch(clearWrongAnswer());
     dispatch(clearScore());
+    dispatch(setLessAnswers(false));
   }
 
   function playAgain() {
@@ -178,10 +215,10 @@ function App() {
   function quiz() {
     finishQuiz();
     dispatch(setCurrentQuestion());
-    dispatch(setIsButtonClicked(false));
     checkUsedData();
     setAnswers();
     setQuestion();
+    dispatch(setIsButtonClicked(false));
   }
 
   function startQuiz() {
@@ -195,9 +232,7 @@ function App() {
         <>
           <Question />
           <Answers answerClicked={answerClicked} /> <Counter />
-          <Button variant="contained" onClick={() => backToStart()}>
-            {interfaceText.BACK_TO_START}
-          </Button>
+          <Buttons backToStart={backToStart} />
         </>
       )}
       {finish && <Finish playAgain={playAgain} backToStart={backToStart} />}

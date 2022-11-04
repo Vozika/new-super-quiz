@@ -8,7 +8,7 @@ const initialState = {
   lessAnswers: false,
   numberOfQuestions: {
     current: 10,
-    options: [5, 10, 15, data.length] 
+    options: [5, 10, 15, data.length],
   },
   numberOfAnswers: 4,
   ironMan: false,
