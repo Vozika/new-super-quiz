@@ -6,6 +6,7 @@ const initialState = {
   usedData: [],
   question: { text: "", object: "", answers: [] },
   subject: "capital",
+  object: "name"
 };
 
 const engineSlice = createSlice({
@@ -44,6 +45,9 @@ const engineSlice = createSlice({
     setSubject: (state, action) => {
       state.subject = action.payload;
     },
+    setObject: (state, action) => {
+      state.object = action.payload;
+    },
   },
 });
 
@@ -57,6 +61,8 @@ export const {
   setQuestionText,
   setQuestionObject,
   setQuestionColor,
+  setSubject,
+  setObject
 } = engineSlice.actions;
 
 export default engineSlice.reducer;

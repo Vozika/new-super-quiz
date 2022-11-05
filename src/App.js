@@ -18,6 +18,8 @@ import {
   randomizeAnswers,
   setQuestionText,
   setQuestionObject,
+  setSubject,
+  setObject,
 } from "./features/engine/engineSlice";
 
 import {
@@ -48,7 +50,9 @@ import { setIsButtonClicked } from "./features/utilities/utilitiesSlice";
 function App() {
   const dispatch = useDispatch();
   const { start, main, finish } = useSelector((store) => store.structure);
-  const { data, usedData, subject } = useSelector((store) => store.engine);
+  const { data, usedData, subject, object } = useSelector(
+    (store) => store.engine
+  );
   const { isButtonClicked } = useSelector((store) => store.utilities);
   const { currentQuestion } = useSelector((store) => store.score);
   const {
@@ -57,6 +61,7 @@ function App() {
     interfaceText,
     RU,
     translations,
+    flip,
   } = useSelector((store) => store.options);
 
   // Standart function for a random number
@@ -92,7 +97,6 @@ function App() {
 
   function firstSlice() {
     const itemFromData = sliceItemFromData();
-
     propetyUsingObject(itemFromData);
     dispatch(oneItemToUsedData(itemFromData));
   }
@@ -114,7 +118,6 @@ function App() {
   //Makes an array of 3 false answers plus one true
   function setAnswers() {
     const wrongAnswers = [];
-    console.log(wrongAnswers);
 
     function wrong() {
       while (wrongAnswers.length < numberOfAnswers - 1) {
@@ -124,7 +127,6 @@ function App() {
         );
 
         if (
-          // itemFromData.id !== usedData[usedData.length - 1].id &&
           itemFromData[subject].translations.en !==
             usedData[usedData.length - 1][subject].translations.en &&
           wrongAnswers.find(
@@ -142,7 +144,6 @@ function App() {
       }
     }
     wrong();
-    console.log(wrongAnswers);
 
     // Sets 2 wrong answers to hide when show5050 (in options) and lessAnswers (buttons) are active
     wrongAnswers[0].toHide = true;
@@ -153,15 +154,20 @@ function App() {
     dispatch(randomizeAnswers());
   }
 
+  function questionText() {
+    const questionText = flip
+      ? interfaceText.QUESTION_TEXT_FLIP
+      : interfaceText.QUESTION_TEXT;
+    return questionText;
+  }
+
   function setQuestion() {
-    dispatch(setQuestionText(interfaceText.QUESTION_TEXT));
+    dispatch(setQuestionText(questionText()));
     dispatch(
       setQuestionObject(
-        usedData[usedData.length - 1].name.translations[translations]
+        usedData[usedData.length - 1][object].translations[translations]
       )
     );
-    console.log(usedData[usedData.length - 1].name[translations]);
-    console.log(usedData[usedData.length - 1].name);
   }
 
   function answerClicked(isCorrect) {
@@ -220,6 +226,20 @@ function App() {
   useEffect(() => {
     firstSlice();
   }, []);
+
+  useEffect(() => {
+    if (flip) {
+      dispatch(setSubject("name"));
+      dispatch(setObject("capital"));
+    }
+  });
+
+  useEffect(() => {
+    if (!flip) {
+      dispatch(setSubject("capital"));
+      dispatch(setObject("name"));
+    }
+  });
 
   useEffect(() => {
     if (!RU) {

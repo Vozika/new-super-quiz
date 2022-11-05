@@ -20,7 +20,7 @@ import Stack from "@mui/material/Stack";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setNumberOfQuestions,
-  setFlip,
+  switchFlip,
   switchShow5050,
   switchHideLetters,
   setOptions,
@@ -48,7 +48,7 @@ const style = {
 const Options = ({ startQuiz }) => {
   const dispatch = useDispatch();
 
-  const { interfaceText, numberOfQuestions, show5050, hideLetters } =
+  const { interfaceText, numberOfQuestions, show5050, hideLetters, flip } =
     useSelector((store) => store.options);
 
   return (
@@ -149,6 +149,28 @@ const Options = ({ startQuiz }) => {
             />
             <Typography sx={{ fontSize: "1rem", marginBottom: 0 }}>
               {interfaceText.SHOW5050_DESC}
+            </Typography>
+
+            <Divider sx={{ margin: 0 }} />
+
+            <FormControlLabel
+              sx={{
+                margin: 0,
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "1.2rem",
+                fontWeight: "bold",
+              }}
+              disableTypography
+              control={<Checkbox />}
+              label={interfaceText.FLIP}
+              checked={flip ? true : false}
+              onChange={() => {
+                dispatch(switchFlip());
+              }}
+            />
+            <Typography sx={{ fontSize: "1rem", marginBottom: 0 }}>
+              {interfaceText.FLIP_DESC}
             </Typography>
 
             <Divider sx={{ margin: 0 }} />
