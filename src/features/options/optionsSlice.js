@@ -20,6 +20,7 @@ const initialState = {
   translations: "",
   statistics: false,
   options: false,
+  region: false
 };
 
 const optionsSlice = createSlice({
@@ -47,8 +48,8 @@ const optionsSlice = createSlice({
     setNumberOfQuestions: (state, action) => {
       state.numberOfQuestions.current = action.payload;
     },
-    setIronMan: (state, action) => {
-      state.ironMan = action.payload;
+    switchIronMan: (state) => {
+      state.ironMan = !state.ironMan;
     },
     setIronManModal: (state, action) => {
       state.ironManModal = action.payload;
@@ -77,6 +78,9 @@ const optionsSlice = createSlice({
     setTranslations: (state, action) => {
       state.translations = action.payload;
     },
+    switchRegion: (state) => {
+      state.region = !state.region;
+    },
   },
 });
 
@@ -88,7 +92,7 @@ export const {
   switchFlip,
   setFlip,
   setNumberOfQuestions,
-  setIronMan,
+  switchIronMan,
   setIronManModal,
   switchHideLetters,
   setHideLetters,
@@ -98,6 +102,7 @@ export const {
   setStatistics,
   setOptions,
   setTranslations,
+  switchRegion
 } = optionsSlice.actions;
 
 export default optionsSlice.reducer;

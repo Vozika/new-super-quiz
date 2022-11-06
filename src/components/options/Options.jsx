@@ -24,6 +24,8 @@ import {
   switchShow5050,
   switchHideLetters,
   setOptions,
+  switchRegion,
+  switchIronMan,
 } from "../../features/options/optionsSlice";
 
 import {
@@ -48,8 +50,15 @@ const style = {
 const Options = ({ startQuiz }) => {
   const dispatch = useDispatch();
 
-  const { interfaceText, numberOfQuestions, show5050, hideLetters, flip } =
-    useSelector((store) => store.options);
+  const {
+    interfaceText,
+    numberOfQuestions,
+    show5050,
+    hideLetters,
+    flip,
+    region,
+    ironMan,
+  } = useSelector((store) => store.options);
 
   return (
     <Box sx={style}>
@@ -144,7 +153,8 @@ const Options = ({ startQuiz }) => {
               disableTypography
               control={<Checkbox />}
               label={interfaceText.SHOW5050}
-              checked={show5050 ? true : false}
+              checked={show5050 && !ironMan ? true : false}
+              disabled={ironMan ? true : false}
               onChange={() => dispatch(switchShow5050())}
             />
             <Typography sx={{ fontSize: "1rem", marginBottom: 0 }}>
@@ -185,12 +195,56 @@ const Options = ({ startQuiz }) => {
               }}
               disableTypography
               control={<Checkbox />}
+              label={interfaceText.REGION}
+              checked={region ? true : false}
+              onChange={() => {
+                dispatch(switchRegion());
+              }}
+            />
+            <Typography sx={{ fontSize: "1rem", marginBottom: 0 }}>
+              {interfaceText.REGION_DESC}
+            </Typography>
+
+            <Divider sx={{ margin: 0 }} />
+
+            <FormControlLabel
+              sx={{
+                margin: 0,
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "1.2rem",
+                fontWeight: "bold",
+              }}
+              disableTypography
+              control={<Checkbox />}
               label={interfaceText.HIDE_LETTERS}
               checked={hideLetters ? true : false}
               onChange={() => dispatch(switchHideLetters())}
             />
             <Typography sx={{ fontSize: "1rem", marginBottom: 0 }}>
               {interfaceText.HIDE_LETTERS_DESC}
+            </Typography>
+
+            <Divider sx={{ margin: 0 }} />
+
+            <FormControlLabel
+              sx={{
+                margin: 0,
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "1.2rem",
+                fontWeight: "bold",
+              }}
+              disableTypography
+              control={<Checkbox />}
+              label={interfaceText.IRON_MAN_MODE}
+              checked={ironMan ? true : false}
+              onChange={() => {
+                dispatch(switchIronMan());
+              }}
+            />
+            <Typography sx={{ fontSize: "1rem", marginBottom: 0 }}>
+              {interfaceText.IRON_MAN_MODE_DESC}
             </Typography>
           </FormControl>
         </CardContent>

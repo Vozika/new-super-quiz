@@ -7,7 +7,11 @@ import {
   setModal,
 } from "../../features/structure/structureSlice";
 
-import { switchRU } from "../../features/options/optionsSlice";
+import { switchRU, setOptions } from "../../features/options/optionsSlice";
+import {
+  setStatistics,
+  setLocalStorageData,
+} from "../../features/utilities/utilitiesSlice";
 
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -15,13 +19,13 @@ import Modal from "@mui/material/Modal";
 import Backdrop from "@mui/material/Backdrop";
 
 import Options from "../options/Options";
+import Statistics from "../statistics/Statistics";
 
-const Start = ({ startQuiz }) => {
-  const { interfaceText } = useSelector((store) => store.options);
+const Start = ({ startQuiz, toLocalStorage }) => {
+  const { interfaceText, options } = useSelector((store) => store.options);
   const { modal } = useSelector((store) => store.structure);
+  const { statistics } = useSelector((store) => store.utilities);
   const dispatch = useDispatch();
-
-
 
   return (
     <div>
@@ -32,6 +36,8 @@ const Start = ({ startQuiz }) => {
         aria-describedby="transition-modal-description"
         open={modal}
         onClose={() => {
+          dispatch(setStatistics(false));
+          dispatch(setOptions(false));
           dispatch(setModal(false));
         }}
         closeAfterTransition
@@ -41,7 +47,8 @@ const Start = ({ startQuiz }) => {
         }}
       >
         <>
-          <Options startQuiz={startQuiz} />
+          {options && <Options startQuiz={startQuiz} />}
+          {statistics && <Statistics toLocalStorage={toLocalStorage} />}
         </>
       </Modal>
 
@@ -53,15 +60,26 @@ const Start = ({ startQuiz }) => {
           startQuiz();
         }}
       >
-        {interfaceText.NORMAL_QUIZ}
+        {interfaceText.START_QUIZ}
       </Button>
       <Button
         variant="outlined"
         onClick={() => {
+          dispatch(setOptions(true));
           dispatch(setModal(true));
         }}
       >
         {interfaceText.OPTIONS}
+      </Button>
+      <Button
+        variant="outlined"
+        onClick={() => {
+          dispatch(setLocalStorageData());
+          dispatch(setStatistics(true));
+          dispatch(setModal(true));
+        }}
+      >
+        {interfaceText.STATISTICS}
       </Button>
       <Button
         variant="outlined"

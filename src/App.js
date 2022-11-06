@@ -43,17 +43,24 @@ import {
   setLessAnswers,
   setInterfaceText,
   setTranslations,
+  setShow5050,
 } from "./features/options/optionsSlice";
 
-import { setIsButtonClicked } from "./features/utilities/utilitiesSlice";
+import {
+  setIsButtonClicked,
+  setLocalStorageData,
+} from "./features/utilities/utilitiesSlice";
 
 function App() {
   const dispatch = useDispatch();
+
   const { start, main, finish } = useSelector((store) => store.structure);
   const { data, usedData, subject, object } = useSelector(
     (store) => store.engine
   );
-  const { isButtonClicked } = useSelector((store) => store.utilities);
+  const { isButtonClicked, localStorageData } = useSelector(
+    (store) => store.utilities
+  );
   const { currentQuestion } = useSelector((store) => store.score);
   const {
     numberOfQuestions,
@@ -62,6 +69,9 @@ function App() {
     RU,
     translations,
     flip,
+    region,
+    ironMan,
+    lessAnswers,
   } = useSelector((store) => store.options);
 
   // Standart function for a random number
@@ -127,6 +137,9 @@ function App() {
         );
 
         if (
+          //For flip and region both
+          itemFromData[object].translations.en !==
+            usedData[usedData.length - 1][object].translations.en &&
           itemFromData[subject].translations.en !==
             usedData[usedData.length - 1][subject].translations.en &&
           wrongAnswers.find(
@@ -155,9 +168,21 @@ function App() {
   }
 
   function questionText() {
-    const questionText = flip
-      ? interfaceText.QUESTION_TEXT_FLIP
-      : interfaceText.QUESTION_TEXT;
+    let questionText = "";
+
+    switch (true) {
+      case flip && region:
+        questionText = interfaceText.QUESTION_REGION_TEXT_FLIP;
+        break;
+      case flip:
+        questionText = interfaceText.QUESTION_TEXT_FLIP;
+        break;
+      case region:
+        questionText = interfaceText.QUESTION_REGION_TEXT;
+        break;
+      default:
+        questionText = interfaceText.QUESTION_TEXT;
+    }
     return questionText;
   }
 
@@ -172,10 +197,21 @@ function App() {
 
   function answerClicked(isCorrect) {
     if (!isButtonClicked) {
+      if (lessAnswers) {
+        localStorage.option5050 = Number(localStorage.option5050) + 1;
+      }
       if (isCorrect) {
         dispatch(setScore());
         dispatch(setRightAnswer());
+        localStorage.rightAnswers = Number(localStorage.rightAnswers) + 1;
       } else {
+        localStorage.wrongAnswers = Number(localStorage.wrongAnswers) + 1;
+        if (ironMan) {
+          setTimeout(() => {
+            finishIronMan();
+          }, 900);
+        }
+
         dispatch(setWrongAnswer());
       }
     }
@@ -192,12 +228,28 @@ function App() {
     }
   }
 
+  function ironManToLocalStorage() {
+    if (currentQuestion > localStorage.getItem("ironManStreak")) {
+      localStorage.setItem("ironManStreak", currentQuestion);
+    }
+  }
+
   function finishQuiz() {
     if (currentQuestion === numberOfQuestions.current && main) {
+      localStorage.gamesFinished = Number(localStorage.gamesFinished) + 1;
+      if (ironMan) {
+        ironManToLocalStorage();
+      }
       dispatch(setMain(false));
       dispatch(setFinish(true));
       return;
     }
+  }
+
+  function finishIronMan() {
+    dispatch(setMain(false));
+    dispatch(setFinish(true));
+    return;
   }
 
   function clearAllScores() {
@@ -209,10 +261,12 @@ function App() {
   }
 
   function playAgain() {
+    if (ironMan) {
+      localStorage.ironManAttempts = Number(localStorage.ironManAttempts) + 1;
+    }
     clearAllScores();
     dispatch(setFinish(false));
     dispatch(setMain(true));
-
     quiz();
   }
 
@@ -227,15 +281,31 @@ function App() {
     firstSlice();
   }, []);
 
-  useEffect(() => {
-    if (flip) {
-      dispatch(setSubject("name"));
-      dispatch(setObject("capital"));
-    }
-  });
+  function toLocalStorage() {
+    Object.keys(localStorageData).map(
+      (data) => !localStorage.getItem(data) && localStorage.setItem(data, 0)
+    );
+  }
 
   useEffect(() => {
-    if (!flip) {
+    setLocalStorageData();
+  }, []);
+
+  useEffect(() => {
+    toLocalStorage();
+  }, []);
+
+  useEffect(() => {
+    if (flip && !region) {
+      dispatch(setSubject("name"));
+      dispatch(setObject("capital"));
+    } else if (flip && region) {
+      dispatch(setSubject("name"));
+      dispatch(setObject("region"));
+    } else if (region) {
+      dispatch(setSubject("region"));
+      dispatch(setObject("name"));
+    } else {
       dispatch(setSubject("capital"));
       dispatch(setObject("name"));
     }
@@ -246,12 +316,15 @@ function App() {
       dispatch(setInterfaceText(interfaceEN));
       dispatch(setTranslations("en"));
     }
-  });
-
-  useEffect(() => {
     if (RU) {
       dispatch(setInterfaceText(interfaceRU));
       dispatch(setTranslations("ru"));
+    }
+  });
+
+  useEffect(() => {
+    if (ironMan) {
+      dispatch(setShow5050(false));
     }
   });
 
@@ -269,12 +342,17 @@ function App() {
   }
 
   function startQuiz() {
+    if (ironMan) {
+      localStorage.ironManAttempts = Number(localStorage.ironManAttempts) + 1;
+    }
     quiz();
   }
 
+  console.log(localStorage);
+
   return (
     <div className="App">
-      {start && <Start startQuiz={startQuiz} />}
+      {start && <Start startQuiz={startQuiz} toLocalStorage={toLocalStorage} />}
       {main && (
         <>
           <Question />
