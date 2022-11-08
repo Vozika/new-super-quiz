@@ -34,18 +34,7 @@ import {
   setModal,
 } from "../../features/structure/structureSlice";
 
-const style = {
-  textAlign: "center",
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "min(100%, 700px)",
-  bgcolor: "background.paper",
-  border: "1px solid #bdbdbd",
-  boxShadow: 24,
-  p: 3,
-};
+import { styles } from "../../styles";
 
 const Options = ({ startQuiz }) => {
   const dispatch = useDispatch();
@@ -61,194 +50,110 @@ const Options = ({ startQuiz }) => {
   } = useSelector((store) => store.options);
 
   return (
-    <Box sx={style}>
-      <Card>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          spacing={0}
-          sx={{ width: "100%", bgcolor: "#bdbdbd" }}
-        >
-          <CardHeader
-            sx={{
-              fontSize: "1.3rem",
-              margin: 0,
-              textAlign: "left",
-            }}
-            disableTypography
-            title={interfaceText.OPTIONS}
-            avatar={
-              <Avatar sx={{ bgcolor: "#dd3131" }} aria-label="options">
-                <SettingsIcon />
-              </Avatar>
-            }
-          ></CardHeader>
-          <CancelIcon
-            sx={{ marginRight: 2 }}
-            onClick={() => {
-              dispatch(setOptions(false));
-              dispatch(setModal(false));
-            }}
-          />
-        </Stack>
+    <Box sx={styles.options__box}>
+      <Stack sx={styles.options__stack_cancelIcon}>
+        <CancelIcon
+          onClick={() => {
+            dispatch(setOptions(false));
+            dispatch(setModal(false));
+          }}
+        />
+      </Stack>
+      <Typography variant="h3" sx={{ position: "relative", top: -5 }}>
+        {interfaceText.OPTIONS}
+      </Typography>
+      <br />
 
-        <CardContent>
-          <FormControl sx={{ margin: 0 }}>
-            <FormLabel
-              id="demo-row-radio-buttons-group-label"
-              sx={{ margin: 0 }}
-            >
-              <Typography
-                sx={{
-                  marginTop: 0,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  fontSize: "1.2rem",
-                  fontWeight: "bold",
-                  color: "black",
+      <FormControl>
+        <Typography sx={styles.options_title_21}>
+          {interfaceText.NUMBER_OF_QUESTIONS}
+        </Typography>
+
+        <RadioGroup row sx={{ ...styles.options_title, m: 0, p: 0 }}>
+          {numberOfQuestions.options.map((option) => {
+            return (
+              <FormControlLabel
+                key={option}
+                value={option}
+                control={<Radio sx={{ m: 0.5, p: 0 }} />}
+                label={option}
+                checked={numberOfQuestions.current === option ? true : false}
+                onChange={() => {
+                  dispatch(setNumberOfQuestions(option));
                 }}
-              >
-                {interfaceText.NUMBER_OF_QUESTIONS}
-              </Typography>
-            </FormLabel>
-            <RadioGroup
-              row
-              aria-labelledby="demo-row-radio-buttons-group-label"
-              name="row-radio-buttons-group"
-              sx={{
-                margin: 0,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              {numberOfQuestions.options.map((option) => {
-                return (
-                  <FormControlLabel
-                    key={option}
-                    value={option}
-                    control={<Radio />}
-                    label={option}
-                    checked={
-                      numberOfQuestions.current === option ? true : false
-                    }
-                    onChange={() => {
-                      dispatch(setNumberOfQuestions(option));
-                    }}
-                  />
-                );
-              })}
-            </RadioGroup>
+              />
+            );
+          })}
+        </RadioGroup>
 
-            <Divider sx={{ margin: 0 }} />
+        <Divider sx={styles.divider} />
 
-            <FormControlLabel
-              sx={{
-                margin: 0,
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: "1.2rem",
-                fontWeight: "bold",
-              }}
-              disableTypography
-              control={<Checkbox />}
-              label={interfaceText.SHOW5050}
-              checked={show5050 && !ironMan ? true : false}
-              disabled={ironMan ? true : false}
-              onChange={() => dispatch(switchShow5050())}
-            />
-            <Typography sx={{ fontSize: "1rem", marginBottom: 0 }}>
-              {interfaceText.SHOW5050_DESC}
-            </Typography>
+        <FormControlLabel
+          sx={styles.options_title}
+          disableTypography
+          control={<Checkbox />}
+          label={interfaceText.SHOW5050}
+          checked={show5050 && !ironMan ? true : false}
+          disabled={ironMan ? true : false}
+          onChange={() => dispatch(switchShow5050())}
+        />
+        <Typography>{interfaceText.SHOW5050_DESC}</Typography>
 
-            <Divider sx={{ margin: 0 }} />
+        <Divider sx={styles.divider} />
 
-            <FormControlLabel
-              sx={{
-                margin: 0,
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: "1.2rem",
-                fontWeight: "bold",
-              }}
-              disableTypography
-              control={<Checkbox />}
-              label={interfaceText.FLIP}
-              checked={flip ? true : false}
-              onChange={() => {
-                dispatch(switchFlip());
-              }}
-            />
-            <Typography sx={{ fontSize: "1rem", marginBottom: 0 }}>
-              {interfaceText.FLIP_DESC}
-            </Typography>
+        <FormControlLabel
+          sx={styles.options_title}
+          disableTypography
+          control={<Checkbox />}
+          label={interfaceText.FLIP}
+          checked={flip ? true : false}
+          onChange={() => {
+            dispatch(switchFlip());
+          }}
+        />
+        <Typography>{interfaceText.FLIP_DESC}</Typography>
 
-            <Divider sx={{ margin: 0 }} />
+        <Divider sx={styles.divider} />
 
-            <FormControlLabel
-              sx={{
-                margin: 0,
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: "1.2rem",
-                fontWeight: "bold",
-              }}
-              disableTypography
-              control={<Checkbox />}
-              label={interfaceText.REGION}
-              checked={region ? true : false}
-              onChange={() => {
-                dispatch(switchRegion());
-              }}
-            />
-            <Typography sx={{ fontSize: "1rem", marginBottom: 0 }}>
-              {interfaceText.REGION_DESC}
-            </Typography>
+        <FormControlLabel
+          sx={styles.options_title}
+          disableTypography
+          control={<Checkbox />}
+          label={interfaceText.REGION}
+          checked={region ? true : false}
+          onChange={() => {
+            dispatch(switchRegion());
+          }}
+        />
+        <Typography>{interfaceText.REGION_DESC}</Typography>
 
-            <Divider sx={{ margin: 0 }} />
+        <Divider sx={styles.divider} />
 
-            <FormControlLabel
-              sx={{
-                margin: 0,
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: "1.2rem",
-                fontWeight: "bold",
-              }}
-              disableTypography
-              control={<Checkbox />}
-              label={interfaceText.HIDE_LETTERS}
-              checked={hideLetters ? true : false}
-              onChange={() => dispatch(switchHideLetters())}
-            />
-            <Typography sx={{ fontSize: "1rem", marginBottom: 0 }}>
-              {interfaceText.HIDE_LETTERS_DESC}
-            </Typography>
+        <FormControlLabel
+          sx={styles.options_title}
+          disableTypography
+          control={<Checkbox />}
+          label={interfaceText.HIDE_LETTERS}
+          checked={hideLetters ? true : false}
+          onChange={() => dispatch(switchHideLetters())}
+        />
+        <Typography>{interfaceText.HIDE_LETTERS_DESC}</Typography>
 
-            <Divider sx={{ margin: 0 }} />
+        <Divider sx={styles.divider} />
 
-            <FormControlLabel
-              sx={{
-                margin: 0,
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: "1.2rem",
-                fontWeight: "bold",
-              }}
-              disableTypography
-              control={<Checkbox />}
-              label={interfaceText.IRON_MAN_MODE}
-              checked={ironMan ? true : false}
-              onChange={() => {
-                dispatch(switchIronMan());
-              }}
-            />
-            <Typography sx={{ fontSize: "1rem", marginBottom: 0 }}>
-              {interfaceText.IRON_MAN_MODE_DESC}
-            </Typography>
-          </FormControl>
-        </CardContent>
-      </Card>
+        <FormControlLabel
+          sx={styles.options_title}
+          disableTypography
+          control={<Checkbox />}
+          label={interfaceText.IRON_MAN_MODE}
+          checked={ironMan ? true : false}
+          onChange={() => {
+            dispatch(switchIronMan());
+          }}
+        />
+        <Typography>{interfaceText.IRON_MAN_MODE_DESC}</Typography>
+      </FormControl>
+      <br /><br />
       <Button
         variant="contained"
         onClick={() => {

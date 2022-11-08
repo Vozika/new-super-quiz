@@ -5,6 +5,8 @@ import Stack from "@mui/material/Stack";
 import { useSelector, useDispatch } from "react-redux";
 import { switchLessAnswers } from "../../features/options/optionsSlice";
 
+import { styles } from "../../styles";
+
 const Buttons = ({ backToStart }) => {
   const dispatch = useDispatch();
   const { show5050, interfaceText, lessAnswers } = useSelector(
@@ -13,10 +15,11 @@ const Buttons = ({ backToStart }) => {
 
   return (
     <div>
-      <Stack>
+      <Stack  sx={styles.stack}>
         {show5050 && (
           <Button
             variant="outlined"
+            sx={styles.btn}
             onClick={() => {
               dispatch(switchLessAnswers());
               console.log(lessAnswers);
@@ -26,7 +29,7 @@ const Buttons = ({ backToStart }) => {
           </Button>
         )}
 
-        <Button variant="contained" onClick={() => backToStart()}>
+        <Button variant="contained" sx={styles.btn} onClick={() => backToStart()}>
           {interfaceText.BACK_TO_START}
         </Button>
       </Stack>

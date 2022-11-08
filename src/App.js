@@ -10,6 +10,11 @@ import Question from "./components/question/Question";
 import Finish from "./components/finish/Finish";
 import Buttons from "./components/buttons/Buttons";
 
+import { styles } from "./styles"
+
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+
 import {
   oneItemToUsedData,
   spreadToUsedData,
@@ -277,15 +282,31 @@ function App() {
     dispatch(setStart(true));
   }
 
-  useEffect(() => {
-    firstSlice();
-  }, []);
-
   function toLocalStorage() {
     Object.keys(localStorageData).map(
       (data) => !localStorage.getItem(data) && localStorage.setItem(data, 0)
     );
   }
+
+  function quiz() {
+    finishQuiz();
+    dispatch(setCurrentQuestion());
+    checkUsedData();
+    setAnswers();
+    setQuestion();
+    dispatch(setIsButtonClicked(false));
+  }
+
+  function startQuiz() {
+    if (ironMan) {
+      localStorage.ironManAttempts = Number(localStorage.ironManAttempts) + 1;
+    }
+    quiz();
+  }
+
+  useEffect(() => {
+    firstSlice();
+  }, []);
 
   useEffect(() => {
     setLocalStorageData();
@@ -332,35 +353,21 @@ function App() {
     refreshUsedData();
   }, [usedData]);
 
-  function quiz() {
-    finishQuiz();
-    dispatch(setCurrentQuestion());
-    checkUsedData();
-    setAnswers();
-    setQuestion();
-    dispatch(setIsButtonClicked(false));
-  }
-
-  function startQuiz() {
-    if (ironMan) {
-      localStorage.ironManAttempts = Number(localStorage.ironManAttempts) + 1;
-    }
-    quiz();
-  }
-
-  console.log(localStorage);
-
   return (
     <div className="App">
-      {start && <Start startQuiz={startQuiz} toLocalStorage={toLocalStorage} />}
-      {main && (
-        <>
-          <Question />
-          <Answers answerClicked={answerClicked} /> <Counter />
-          <Buttons backToStart={backToStart} />
-        </>
-      )}
-      {finish && <Finish playAgain={playAgain} backToStart={backToStart} />}
+      <Box sx={styles.box}>
+        {start && (
+          <Start startQuiz={startQuiz} toLocalStorage={toLocalStorage} />
+        )}
+        {main && (
+          <Stack>
+            <Question />
+            <Answers answerClicked={answerClicked} /> <Counter />
+            <Buttons backToStart={backToStart} />
+          </Stack>
+        )}
+        {finish && <Finish playAgain={playAgain} backToStart={backToStart} />}
+      </Box>
     </div>
   );
 }

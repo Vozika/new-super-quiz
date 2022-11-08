@@ -46,7 +46,7 @@ export const {
   setCurrentQuestion,
   clearCurrentQuestion,
   setScore,
-  clearScore
+  clearScore,
 } = scoreSlice.actions;
 
 export default scoreSlice.reducer;

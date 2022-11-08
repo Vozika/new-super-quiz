@@ -4,7 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
+import { styles } from "../../styles";
+
 import { setQuestionColor } from "../../features/engine/engineSlice";
+import { Stack } from "@mui/material";
 
 const Answers = ({ answerClicked }) => {
   const dispatch = useDispatch();
@@ -15,7 +18,7 @@ const Answers = ({ answerClicked }) => {
   const { isButtonClicked } = useSelector((store) => store.utilities);
 
   return (
-    <div>
+    <Stack sx={styles.stack}>
       {question.answers.map((answer) => {
         const buttonText = answer[subject].translations[translations];
         const hiddenButtonText =
@@ -28,6 +31,7 @@ const Answers = ({ answerClicked }) => {
             variant="contained"
             key={answer.id}
             sx={{
+              ...styles.btn,
               display: answer.toHide && lessAnswers ? "none" : "inline",
             }}
             color={
@@ -54,7 +58,7 @@ const Answers = ({ answerClicked }) => {
           </Button>
         );
       })}
-    </div>
+    </Stack>
   );
 };
 

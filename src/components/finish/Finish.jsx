@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { Stack } from "@mui/material";
+import { styles } from "../../styles";
 
 const Finish = ({ playAgain, backToStart }) => {
   const { numberOfQuestions, interfaceText } = useSelector(
@@ -10,19 +12,25 @@ const Finish = ({ playAgain, backToStart }) => {
   );
   const { rightAnswer } = useSelector((store) => store.score);
   return (
-    <div>
+    <Stack>
       <Typography variant="h5">
         {rightAnswer} {interfaceText.OUT_OF} {numberOfQuestions.current}{" "}
         {interfaceText.QUESTIONS_CORRECT}
         <br />
       </Typography>
-      <Button variant="contained" onClick={() => playAgain()}>
-        {interfaceText.PLAY_AGAIN}
-      </Button>
-      <Button variant="contained" onClick={() => backToStart()}>
-        {interfaceText.BACK_TO_START}
-      </Button>
-    </div>
+      <Stack sx={styles.stack}>
+        <Button variant="contained" sx={styles.btn} onClick={() => playAgain()}>
+          {interfaceText.PLAY_AGAIN}
+        </Button>
+        <Button
+          variant="contained"
+          sx={styles.btn}
+          onClick={() => backToStart()}
+        >
+          {interfaceText.BACK_TO_START}
+        </Button>
+      </Stack>
+    </Stack>
   );
 };
 

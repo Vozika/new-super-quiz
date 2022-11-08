@@ -20,7 +20,7 @@ const initialState = {
   translations: "",
   statistics: false,
   options: false,
-  region: false
+  region: false,
 };
 
 const optionsSlice = createSlice({
@@ -102,7 +102,7 @@ export const {
   setStatistics,
   setOptions,
   setTranslations,
-  switchRegion
+  switchRegion,
 } = optionsSlice.actions;
 
 export default optionsSlice.reducer;

@@ -21,6 +21,9 @@ import Backdrop from "@mui/material/Backdrop";
 import Options from "../options/Options";
 import Statistics from "../statistics/Statistics";
 
+import { styles } from "../../styles";
+import { Stack } from "@mui/material";
+
 const Start = ({ startQuiz, toLocalStorage }) => {
   const { interfaceText, options } = useSelector((store) => store.options);
   const { modal } = useSelector((store) => store.structure);
@@ -29,11 +32,10 @@ const Start = ({ startQuiz, toLocalStorage }) => {
 
   return (
     <div>
-      <Typography variant="h1">{interfaceText.MAIN_TITLE}</Typography>
+      <Typography variant="h2">{interfaceText.MAIN_TITLE}</Typography>
 
       <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
+        sx={styles.modal}
         open={modal}
         onClose={() => {
           dispatch(setStatistics(false));
@@ -51,44 +53,49 @@ const Start = ({ startQuiz, toLocalStorage }) => {
           {statistics && <Statistics toLocalStorage={toLocalStorage} />}
         </>
       </Modal>
-
-      <Button
-        variant="contained"
-        onClick={() => {
-          dispatch(setStart(false));
-          dispatch(setMain(true));
-          startQuiz();
-        }}
-      >
-        {interfaceText.START_QUIZ}
-      </Button>
-      <Button
-        variant="outlined"
-        onClick={() => {
-          dispatch(setOptions(true));
-          dispatch(setModal(true));
-        }}
-      >
-        {interfaceText.OPTIONS}
-      </Button>
-      <Button
-        variant="outlined"
-        onClick={() => {
-          dispatch(setLocalStorageData());
-          dispatch(setStatistics(true));
-          dispatch(setModal(true));
-        }}
-      >
-        {interfaceText.STATISTICS}
-      </Button>
-      <Button
-        variant="outlined"
-        onClick={() => {
-          dispatch(switchRU(true));
-        }}
-      >
-        {interfaceText.CHANGE_LANGUAGE}
-      </Button>
+      <Stack sx={styles.stack}>
+        <Button
+          variant="contained"
+          sx={styles.btn}
+          onClick={() => {
+            dispatch(setStart(false));
+            dispatch(setMain(true));
+            startQuiz();
+          }}
+        >
+          {interfaceText.START_QUIZ}
+        </Button>
+        <Button
+          variant="outlined"
+          sx={styles.btn}
+          onClick={() => {
+            dispatch(setOptions(true));
+            dispatch(setModal(true));
+          }}
+        >
+          {interfaceText.OPTIONS}
+        </Button>
+        <Button
+          variant="outlined"
+          sx={styles.btn}
+          onClick={() => {
+            dispatch(setLocalStorageData());
+            dispatch(setStatistics(true));
+            dispatch(setModal(true));
+          }}
+        >
+          {interfaceText.STATISTICS}
+        </Button>
+        <Button
+          variant="outlined"
+          sx={styles.btn}
+          onClick={() => {
+            dispatch(switchRU(true));
+          }}
+        >
+          {interfaceText.CHANGE_LANGUAGE}
+        </Button>
+      </Stack>
     </div>
   );
 };

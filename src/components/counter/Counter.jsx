@@ -16,6 +16,9 @@ const Counter = () => {
         justifyContent="center"
         alignItems="center"
         spacing={2}
+        sx={{
+          m: 2
+        }}
       >
         <Stack
           direction="row"

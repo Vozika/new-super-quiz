@@ -16,10 +16,8 @@ const Question = () => {
         variant="outlined"
         label={`${currentQuestion} ${interfaceText.OUT_OF} ${numberOfQuestions.current}`}
       />
-      <Typography variant="h4">{question.text}</Typography>
-      <Typography variant="h4" sx={{ marginTop: 1 }}>
-        {question.object}
-      </Typography>
+      <Typography variant="h5" sx={{marginTop: 2, p: 0}}>{question.text}</Typography>
+      <Typography variant="h3" sx={{marginBottom: 2, p: 0}}>{question.object}</Typography>
     </div>
   );
 };
