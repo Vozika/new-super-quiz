@@ -15,21 +15,24 @@ const Buttons = ({ backToStart }) => {
 
   return (
     <div>
-      <Stack  sx={styles.stack}>
+      <Stack sx={styles.stack}>
         {show5050 && (
           <Button
             variant="outlined"
             sx={styles.btn}
             onClick={() => {
               dispatch(switchLessAnswers());
-              console.log(lessAnswers);
             }}
           >
             {interfaceText.BUTTON_5050}
           </Button>
         )}
 
-        <Button variant="contained" sx={styles.btn} onClick={() => backToStart()}>
+        <Button
+          variant="contained"
+          sx={styles.btn}
+          onClick={() => backToStart()}
+        >
           {interfaceText.BACK_TO_START}
         </Button>
       </Stack>

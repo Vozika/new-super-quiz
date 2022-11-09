@@ -153,7 +153,8 @@ const Options = ({ startQuiz }) => {
         />
         <Typography>{interfaceText.IRON_MAN_MODE_DESC}</Typography>
       </FormControl>
-      <br /><br />
+      <br />
+      <br />
       <Button
         variant="contained"
         onClick={() => {
@@ -166,6 +167,8 @@ const Options = ({ startQuiz }) => {
       >
         {interfaceText.START_QUIZ}
       </Button>
+      <br />
+      <br />
     </Box>
   );
 };

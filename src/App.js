@@ -10,7 +10,7 @@ import Question from "./components/question/Question";
 import Finish from "./components/finish/Finish";
 import Buttons from "./components/buttons/Buttons";
 
-import { styles } from "./styles"
+import { styles } from "./styles";
 
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -25,6 +25,7 @@ import {
   setQuestionObject,
   setSubject,
   setObject,
+  clearUsedData,
 } from "./features/engine/engineSlice";
 
 import {
@@ -270,6 +271,7 @@ function App() {
       localStorage.ironManAttempts = Number(localStorage.ironManAttempts) + 1;
     }
     clearAllScores();
+    clearAndRefresh();
     dispatch(setFinish(false));
     dispatch(setMain(true));
     quiz();
@@ -277,6 +279,7 @@ function App() {
 
   function backToStart() {
     clearAllScores();
+    clearAndRefresh();
     main && dispatch(setMain(false));
     finish && dispatch(setFinish(false));
     dispatch(setStart(true));
@@ -286,6 +289,14 @@ function App() {
     Object.keys(localStorageData).map(
       (data) => !localStorage.getItem(data) && localStorage.setItem(data, 0)
     );
+  }
+
+  //For 195 questions option (or all the items in data). Refreshes usedData array to prevent appearing items twice
+  function clearAndRefresh() {
+    if (numberOfQuestions.current === data.length) {
+      dispatch(clearUsedData());
+      firstSlice();
+    }
   }
 
   function quiz() {
@@ -301,8 +312,13 @@ function App() {
     if (ironMan) {
       localStorage.ironManAttempts = Number(localStorage.ironManAttempts) + 1;
     }
+
     quiz();
   }
+
+  useEffect(() => {
+    clearAndRefresh();
+  }, [numberOfQuestions.current]);
 
   useEffect(() => {
     firstSlice();
@@ -352,6 +368,8 @@ function App() {
   useEffect(() => {
     refreshUsedData();
   }, [usedData]);
+
+  console.log(usedData);
 
   return (
     <div className="App">

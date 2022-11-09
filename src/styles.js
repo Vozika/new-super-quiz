@@ -1,3 +1,8 @@
+const vh = Math.max(
+  document.documentElement.clientHeight || 0,
+  window.innerHeight || 0
+);
+
 export const styles = {
   btn: {
     width: {
@@ -27,18 +32,23 @@ export const styles = {
     justifyContent: "center",
   },
   options__box: {
-    
     textAlign: "center",
     position: {
       xs: "absolute",
       sm: "absolute",
     },
     top: {
+      xs: vh < 700 ? "0%" : "50%",
+      sm: "50%",
+    },
+    left: {
       xs: "50%",
       sm: "50%",
     },
-    left: "50%",
-    transform: "translate(-50%, -50%)",
+    transform: {
+      xs: "translate(-50%, 0%)",
+      sm: "translate(-50%, -50%)",
+    },
     width: "min(90%, 700px)",
     bgcolor: "background.paper",
     border: "1px solid #bdbdbd",
@@ -70,7 +80,7 @@ export const styles = {
     justifyContent: "center",
   },
   divider: {
-    marginTop: 1.8,
+    marginTop: 2,
     marginBottom: 0.8,
   },
 };
