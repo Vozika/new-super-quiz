@@ -236,7 +236,11 @@ function App() {
 
   function ironManToLocalStorage() {
     if (currentQuestion > localStorage.getItem("ironManStreak")) {
-      localStorage.setItem("ironManStreak", currentQuestion);
+      if (currentQuestion === numberOfQuestions.current && main) {
+        localStorage.setItem("ironManStreak", currentQuestion);
+      } else {
+        localStorage.setItem("ironManStreak", currentQuestion - 1);
+      }
     }
   }
 
@@ -253,6 +257,7 @@ function App() {
   }
 
   function finishIronMan() {
+    ironManToLocalStorage();
     dispatch(setMain(false));
     dispatch(setFinish(true));
     return;
