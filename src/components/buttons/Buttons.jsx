@@ -29,7 +29,7 @@ const Buttons = ({ backToStart }) => {
         )}
 
         <Button
-          variant="contained"
+          variant="outlined"
           sx={styles.btn}
           onClick={() => backToStart()}
         >

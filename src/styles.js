@@ -13,7 +13,7 @@ export const styles = {
     height: 40,
   },
   box: {
-    margin: 1,
+    m: 2,
     width: {
       xs: "100%",
       sm: 800,

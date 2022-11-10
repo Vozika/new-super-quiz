@@ -37,7 +37,7 @@ export const interfaceEN = {
   GAMES_FINISHED: "Games finished: ",
   IRON_MAN_ATTEMPTS: "Iron Man attempts: ",
   REGION: "Change capital to region",
-  REGION_DESC: "Choose what is a region of a country instead of a capital."
+  REGION_DESC: "Choose a region of a country instead of a capital."
 };
 
 export const interfaceRU = {

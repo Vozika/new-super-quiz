@@ -23,7 +23,7 @@ const Finish = ({ playAgain, backToStart }) => {
           {interfaceText.PLAY_AGAIN}
         </Button>
         <Button
-          variant="contained"
+          variant="outlined"
           sx={styles.btn}
           onClick={() => backToStart()}
         >

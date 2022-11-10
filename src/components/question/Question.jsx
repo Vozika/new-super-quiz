@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Chip from "@mui/material/Chip";
 import Typography from "@mui/material/Typography";
 
@@ -10,14 +10,33 @@ const Question = () => {
     (store) => store.options
   );
 
+  const objectLength = question.object.length;
+
+  const question_object = {
+    color: "#707070",
+    fontWeight: "600",
+    marginBottom: 2,
+    p: 0,
+    fontSize: {
+      xs: objectLength > 14 ? 30 : objectLength > 18 ? 20 : 48,
+      sm: 50,
+      xl: 70,
+    },
+    lineHeight: {
+      xs: 1.1,
+    },
+  };
+
   return (
     <div>
       <Chip
         variant="outlined"
         label={`${currentQuestion} ${interfaceText.OUT_OF} ${numberOfQuestions.current}`}
       />
-      <Typography variant="h5" sx={{marginTop: 2, p: 0}}>{question.text}</Typography>
-      <Typography variant="h3" sx={{marginBottom: 2, p: 0}}>{question.object}</Typography>
+      <Typography variant="h5" sx={{ marginTop: 2, p: 0 }}>
+        {question.text}
+      </Typography>
+      <Typography sx={question_object}>{question.object}</Typography>
     </div>
   );
 };
