@@ -17,7 +17,7 @@ const Finish = ({ playAgain, backToStart }) => {
         {rightAnswer} {interfaceText.OUT_OF} {numberOfQuestions.current}{" "}
         {interfaceText.QUESTIONS_CORRECT}
         <br />
-      </Typography>
+      </Typography><br />
       <Stack sx={styles.stack}>
         <Button variant="contained" sx={styles.btn} onClick={() => playAgain()}>
           {interfaceText.PLAY_AGAIN}

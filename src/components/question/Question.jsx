@@ -18,7 +18,7 @@ const Question = () => {
     marginBottom: 2,
     p: 0,
     fontSize: {
-      xs: objectLength > 14 ? 30 : objectLength > 18 ? 20 : 48,
+      xs: objectLength > 13 ? 30 : objectLength > 18 ? 16 : 48,
       sm: 50,
       xl: 70,
     },

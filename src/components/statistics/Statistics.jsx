@@ -9,23 +9,16 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 import { useSelector, useDispatch } from "react-redux";
-
+import { styles } from "../../styles";
 import { resetLocalStorageData } from "../../features/utilities/utilitiesSlice";
 
-const style = {
-  textAlign: "center",
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "min(90%, 700px)",
-  bgcolor: "background.paper",
-  border: "1px solid #bdbdbd",
-  boxShadow: 24,
-  p: 3,
-};
+import { setStatistics, setOptions } from "../../features/options/optionsSlice";
+
+import { setModal } from "../../features/structure/structureSlice";
 
 const Statistics = ({ toLocalStorage }) => {
   const dispatch = useDispatch();
@@ -66,8 +59,19 @@ const Statistics = ({ toLocalStorage }) => {
 
   return (
     <>
-      <Box sx={style}>
-        <Typography variant="h3">{interfaceText.STATISTICS}</Typography>
+      <Box sx={styles.options__box}>
+        <Stack sx={styles.options__stack_cancelIcon}>
+          <CancelIcon
+            onClick={() => {
+              dispatch(setStatistics(false));
+              dispatch(setModal(false));
+            }}
+          />
+        </Stack>
+
+        <Typography variant="h3" sx={{ position: "relative", top: -5, mb: 1 }}>
+          {interfaceText.STATISTICS}
+        </Typography>
 
         <TableContainer component={Paper}>
           <Table>
@@ -84,7 +88,14 @@ const Statistics = ({ toLocalStorage }) => {
                   >
                     {row.name}
                   </TableCell>
-                  <TableCell align="right" sx={{ fontSize: "1rem" }}>
+                  <TableCell
+                    align="right"
+                    sx={{
+                      fontSize: "1rem",
+                      fontWeight: "700",
+                      color: "#1976d2",
+                    }}
+                  >
                     {row.value}
                   </TableCell>
                 </TableRow>

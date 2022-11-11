@@ -70,6 +70,7 @@ const Start = ({ startQuiz, toLocalStorage }) => {
           sx={styles.btn}
           onClick={() => {
             dispatch(setOptions(true));
+            dispatch(setStatistics(false));
             dispatch(setModal(true));
           }}
         >

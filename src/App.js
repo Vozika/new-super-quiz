@@ -385,7 +385,8 @@ function App() {
         {main && (
           <Stack>
             <Question />
-            <Answers answerClicked={answerClicked} /> <Counter />
+            <Answers answerClicked={answerClicked} />
+            <Counter />
             <Buttons backToStart={backToStart} />
           </Stack>
         )}

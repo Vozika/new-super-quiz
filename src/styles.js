@@ -13,11 +13,11 @@ export const styles = {
     height: 40,
   },
   box: {
-    m: 2,
+    p: 3,
     width: {
       xs: "100%",
-      sm: 800,
-      xl: 1500,
+      sm: "800px",
+      xl: "1500px",
     },
     backgroundColor: "white",
   },
@@ -68,19 +68,18 @@ export const styles = {
     width: "100%",
   },
   options_title: {
-    fontFamily: "Helvetica",
-    fontWeight: "bold",
-    fontSize: 20,
-    justifyContent: "center",
-  },
-  options_title_21: {
-    fontFamily: "Helvetica",
-    fontWeight: "bold",
-    fontSize: 21,
+    color: "#1976d2",
+    fontFamily: "sans-serif",
+    fontWeight: "400",
+    fontSize: "1.3rem",
     justifyContent: "center",
   },
   divider: {
-    marginTop: 2,
-    marginBottom: 0.8,
+    mt: 2,
+    mb: 0.8,
+  },
+  divider_first: {
+    mt: 1.5,
+    mb: 0.8,
   },
 };

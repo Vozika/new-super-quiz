@@ -7,12 +7,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Avatar from "@mui/material/Avatar";
 import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import CardHeader from "@mui/material/CardHeader";
-import CardContent from "@mui/material/CardContent";
-import SettingsIcon from "@mui/icons-material/Settings";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
@@ -24,6 +19,7 @@ import {
   switchShow5050,
   switchHideLetters,
   setOptions,
+  setStatistics,
   switchRegion,
   switchIronMan,
 } from "../../features/options/optionsSlice";
@@ -59,17 +55,26 @@ const Options = ({ startQuiz }) => {
           }}
         />
       </Stack>
-      <Typography variant="h3" sx={{ position: "relative", top: -5 }}>
+      <Typography variant="h3" sx={{ position: "relative", top: -5, mb: 1 }}>
         {interfaceText.OPTIONS}
       </Typography>
-      <br />
+
+      <Typography sx={styles.options_title}>
+        {interfaceText.NUMBER_OF_QUESTIONS}
+      </Typography>
 
       <FormControl>
-        <Typography sx={styles.options_title_21}>
-          {interfaceText.NUMBER_OF_QUESTIONS}
-        </Typography>
-
-        <RadioGroup row sx={{ ...styles.options_title, m: 0, p: 0 }}>
+        <RadioGroup
+          row
+          sx={{
+            m: 0,
+            p: 0,
+            justifyContent: "center",
+            backgroundColor: "white",
+            position: "relative",
+            left: 9,
+          }}
+        >
           {numberOfQuestions.options.map((option) => {
             return (
               <FormControlLabel
@@ -86,7 +91,7 @@ const Options = ({ startQuiz }) => {
           })}
         </RadioGroup>
 
-        <Divider sx={styles.divider} />
+        <Divider sx={styles.divider_first} />
 
         <FormControlLabel
           sx={styles.options_title}

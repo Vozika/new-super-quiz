@@ -17,7 +17,8 @@ const Counter = () => {
         alignItems="center"
         spacing={2}
         sx={{
-          m: 2
+          mt: 2,
+          mb: 2
         }}
       >
         <Stack
