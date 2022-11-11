@@ -67,7 +67,7 @@ const Start = ({ startQuiz, toLocalStorage }) => {
         </Button>
         <Button
           variant="outlined"
-          sx={styles.btn}
+          sx={styles.btn_outlined}
           onClick={() => {
             dispatch(setOptions(true));
             dispatch(setStatistics(false));
@@ -78,7 +78,7 @@ const Start = ({ startQuiz, toLocalStorage }) => {
         </Button>
         <Button
           variant="outlined"
-          sx={styles.btn}
+          sx={styles.btn_outlined}
           onClick={() => {
             dispatch(setLocalStorageData());
             dispatch(setStatistics(true));
@@ -89,7 +89,7 @@ const Start = ({ startQuiz, toLocalStorage }) => {
         </Button>
         <Button
           variant="outlined"
-          sx={styles.btn}
+          sx={styles.btn_outlined}
           onClick={() => {
             dispatch(switchRU(true));
           }}

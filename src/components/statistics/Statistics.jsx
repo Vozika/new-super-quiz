@@ -11,6 +11,7 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import CancelIcon from "@mui/icons-material/Cancel";
+import Fade from "@mui/material/Fade";
 
 import { useSelector, useDispatch } from "react-redux";
 import { styles } from "../../styles";
@@ -23,7 +24,9 @@ import { setModal } from "../../features/structure/structureSlice";
 const Statistics = ({ toLocalStorage }) => {
   const dispatch = useDispatch();
   const { interfaceText } = useSelector((store) => store.options);
-  const { localStorageData } = useSelector((store) => store.utilities);
+  const { localStorageData, showFade } = useSelector(
+    (store) => store.utilities
+  );
 
   function createData(name, value) {
     return { name, value };
@@ -69,9 +72,21 @@ const Statistics = ({ toLocalStorage }) => {
           />
         </Stack>
 
-        <Typography variant="h3" sx={{ position: "relative", top: -5, mb: 1 }}>
-          {interfaceText.STATISTICS}
-        </Typography>
+        <Fade
+          in={showFade}
+          timeout={{
+            appear: 0,
+            enter: 450,
+            exit: 450,
+          }}
+        >
+          <Typography
+            variant="h3"
+            sx={{ position: "relative", top: -5, mb: 1 }}
+          >
+            {interfaceText.STATISTICS}
+          </Typography>
+        </Fade>
 
         <TableContainer component={Paper}>
           <Table>

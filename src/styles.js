@@ -12,6 +12,15 @@ export const styles = {
     lineHeight: 1,
     height: 40,
   },
+  btn_outlined: {
+    width: {
+      xs: "100%",
+      xl: "25%",
+    },
+    lineHeight: 1,
+    height: 40,
+    backgroundColor: "white"
+  },
   box: {
     p: 3,
     width: {
@@ -19,7 +28,7 @@ export const styles = {
       sm: "800px",
       xl: "1500px",
     },
-    backgroundColor: "white",
+    // backgroundColor: "red",
   },
   stack: {
     display: "flex",

@@ -19,7 +19,7 @@ const Buttons = ({ backToStart }) => {
         {show5050 && (
           <Button
             variant="outlined"
-            sx={styles.btn}
+            sx={styles.btn_outlined}
             onClick={() => {
               dispatch(switchLessAnswers());
             }}
@@ -30,7 +30,7 @@ const Buttons = ({ backToStart }) => {
 
         <Button
           variant="outlined"
-          sx={styles.btn}
+          sx={styles.btn_outlined}
           onClick={() => backToStart()}
         >
           {interfaceText.BACK_TO_START}

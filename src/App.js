@@ -55,6 +55,7 @@ import {
 import {
   setIsButtonClicked,
   setLocalStorageData,
+  setShowFade
 } from "./features/utilities/utilitiesSlice";
 
 function App() {
@@ -221,6 +222,7 @@ function App() {
         dispatch(setWrongAnswer());
       }
     }
+    dispatch(setShowFade(false));
     setTimeout(() => {
       dispatch(setLessAnswers(false));
       quiz();
@@ -305,6 +307,7 @@ function App() {
   }
 
   function quiz() {
+    dispatch(setShowFade(true));
     finishQuiz();
     dispatch(setCurrentQuestion());
     checkUsedData();
@@ -317,7 +320,7 @@ function App() {
     if (ironMan) {
       localStorage.ironManAttempts = Number(localStorage.ironManAttempts) + 1;
     }
-
+    
     quiz();
   }
 
@@ -373,8 +376,6 @@ function App() {
   useEffect(() => {
     refreshUsedData();
   }, [usedData]);
-
-  console.log(usedData);
 
   return (
     <div className="App">

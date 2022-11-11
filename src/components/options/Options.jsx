@@ -11,6 +11,7 @@ import FormControl from "@mui/material/FormControl";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
+import Fade from "@mui/material/Fade";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -19,7 +20,6 @@ import {
   switchShow5050,
   switchHideLetters,
   setOptions,
-  setStatistics,
   switchRegion,
   switchIronMan,
 } from "../../features/options/optionsSlice";
@@ -45,6 +45,8 @@ const Options = ({ startQuiz }) => {
     ironMan,
   } = useSelector((store) => store.options);
 
+  const { showFade } = useSelector((store) => store.utilities);
+
   return (
     <Box sx={styles.options__box}>
       <Stack sx={styles.options__stack_cancelIcon}>
@@ -55,9 +57,19 @@ const Options = ({ startQuiz }) => {
           }}
         />
       </Stack>
-      <Typography variant="h3" sx={{ position: "relative", top: -5, mb: 1 }}>
-        {interfaceText.OPTIONS}
-      </Typography>
+
+      <Fade
+        in={showFade}
+        timeout={{
+          appear: 0,
+          enter: 450,
+          exit: 450,
+        }}
+      >
+        <Typography variant="h3" sx={{ position: "relative", top: -5, mb: 1 }}>
+          {interfaceText.OPTIONS}
+        </Typography>
+      </Fade>
 
       <Typography sx={styles.options_title}>
         {interfaceText.NUMBER_OF_QUESTIONS}

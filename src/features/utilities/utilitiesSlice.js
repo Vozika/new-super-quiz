@@ -11,6 +11,7 @@ const initialState = {
     gamesFinished: 0,
   },
   statistics: false,
+  showFade: true,
 };
 
 const utilitiesSlice = createSlice({
@@ -36,6 +37,9 @@ const utilitiesSlice = createSlice({
     resetLocalStorageData: (state) => {
       state.localStorageData = initialState.localStorageData;
     },
+    setShowFade: (state, action) => {
+      state.showFade = action.payload;
+    },
   },
 });
 
@@ -44,6 +48,7 @@ export const {
   setStatistics,
   setLocalStorageData,
   resetLocalStorageData,
+  setShowFade
 } = utilitiesSlice.actions;
 
 export default utilitiesSlice.reducer;

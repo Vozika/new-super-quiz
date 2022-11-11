@@ -2,10 +2,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Chip from "@mui/material/Chip";
 import Typography from "@mui/material/Typography";
+import Fade from "@mui/material/Fade";
 
 const Question = () => {
   const { question } = useSelector((store) => store.engine);
   const { currentQuestion } = useSelector((store) => store.score);
+  const { showFade } = useSelector((store) => store.utilities);
   const { numberOfQuestions, interfaceText } = useSelector(
     (store) => store.options
   );
@@ -18,7 +20,12 @@ const Question = () => {
     marginBottom: 2,
     p: 0,
     fontSize: {
-      xs: objectLength > 13 ? 30 : objectLength > 18 ? 16 : 48,
+      xs:
+        question.object === "Центральноафриканская Республика"
+          ? 25
+          : objectLength > 13
+          ? 32
+          : 48,
       sm: 50,
       xl: 70,
     },
@@ -36,7 +43,17 @@ const Question = () => {
       <Typography variant="h5" sx={{ marginTop: 2, p: 0 }}>
         {question.text}
       </Typography>
-      <Typography sx={question_object}>{question.object}</Typography>
+
+      <Fade
+        in={showFade}
+        timeout={{
+          appear: 0,
+          enter: 450,
+          exit: 450,
+        }}
+      >
+        <Typography sx={question_object}>{question.object}</Typography>
+      </Fade>
     </div>
   );
 };
