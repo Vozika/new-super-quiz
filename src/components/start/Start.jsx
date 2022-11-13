@@ -17,6 +17,8 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Backdrop from "@mui/material/Backdrop";
+import Box from "@mui/material/Box";
+import Fade from "@mui/material/Fade";
 
 import Options from "../options/Options";
 import Statistics from "../statistics/Statistics";
@@ -27,12 +29,26 @@ import { Stack } from "@mui/material";
 const Start = ({ startQuiz, toLocalStorage }) => {
   const { interfaceText, options } = useSelector((store) => store.options);
   const { modal } = useSelector((store) => store.structure);
-  const { statistics } = useSelector((store) => store.utilities);
+  const { statistics, showFade } = useSelector((store) => store.utilities);
   const dispatch = useDispatch();
 
   return (
     <div>
-      <Typography variant="h2" sx={styles.start_title}>{interfaceText.MAIN_TITLE}</Typography><br />
+      <Fade
+        in={showFade}
+        timeout={{
+          appear: 0,
+          enter: 450,
+          exit: 450,
+        }}
+      >
+        <Box component="img" src="./skyline.png" sx={styles.modal}></Box>
+      </Fade>
+
+      <Typography variant="h2" sx={styles.start_title}>
+        {interfaceText.MAIN_TITLE}
+      </Typography>
+      <br />
 
       <Modal
         sx={styles.modal}

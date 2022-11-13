@@ -98,6 +98,7 @@ export const styles = {
       sm: 80,
       xl: 120
     },
-    fontWeight: "400"
+    fontWeight: "400",
+    mt: 1.5
   }
 };

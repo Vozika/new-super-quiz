@@ -17,10 +17,6 @@ const Finish = ({ playAgain, backToStart }) => {
 
   const perCent = Math.round((rightAnswer / numberOfQuestions.current) * 100);
 
-  console.log(rightAnswer);
-  console.log(numberOfQuestions);
-  console.log(perCent);
-
   return (
     <Stack>
       <Fade
