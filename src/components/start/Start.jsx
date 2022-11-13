@@ -32,7 +32,7 @@ const Start = ({ startQuiz, toLocalStorage }) => {
 
   return (
     <div>
-      <Typography variant="h2">{interfaceText.MAIN_TITLE}</Typography>
+      <Typography variant="h2" sx={styles.start_title}>{interfaceText.MAIN_TITLE}</Typography><br />
 
       <Modal
         sx={styles.modal}

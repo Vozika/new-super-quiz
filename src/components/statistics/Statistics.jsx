@@ -56,8 +56,10 @@ const Statistics = ({ toLocalStorage }) => {
       interfaceText.IRON_MAN_ATTEMPTS,
       localStorageData.ironManAttempts
     ),
+    createData(interfaceText.IRON_MAN_FINISHED, localStorageData.ironManFinished),
     createData(interfaceText.OPTION5050_USED, localStorageData.option5050),
     createData(interfaceText.GAMES_FINISHED, localStorageData.gamesFinished),
+    
   ];
 
   return (

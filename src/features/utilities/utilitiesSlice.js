@@ -9,6 +9,7 @@ const initialState = {
     wrongAnswers: 0,
     option5050: 0,
     gamesFinished: 0,
+    ironManFinished: 0
   },
   statistics: false,
   showFade: true,
@@ -32,6 +33,7 @@ const utilitiesSlice = createSlice({
         wrongAnswers: localStorage.getItem("wrongAnswers"),
         option5050: localStorage.getItem("option5050"),
         gamesFinished: localStorage.getItem("gamesFinished"),
+        ironManFinished: localStorage.getItem("ironManFinished")
       };
     },
     resetLocalStorageData: (state) => {

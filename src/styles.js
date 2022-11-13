@@ -10,7 +10,8 @@ export const styles = {
       xl: "25%",
     },
     lineHeight: 1,
-    height: 40,
+    height: 50,
+    letterSpacing: 1
   },
   btn_outlined: {
     width: {
@@ -18,7 +19,7 @@ export const styles = {
       xl: "25%",
     },
     lineHeight: 1,
-    height: 40,
+    height: 50,
     backgroundColor: "white"
   },
   box: {
@@ -91,4 +92,12 @@ export const styles = {
     mt: 1.5,
     mb: 0.8,
   },
+  start_title: {
+    fontSize: {
+      xs: 40,
+      sm: 80,
+      xl: 120
+    },
+    fontWeight: "400"
+  }
 };

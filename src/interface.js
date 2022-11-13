@@ -34,10 +34,11 @@ export const interfaceEN = {
   RIGHT_ANSWERS_ON_AVERAGE: "Right answers on average, %",
   LONGEST_IRON_MAN: "Longest Iron Man win streak: ",
   OPTION5050_USED: "50/50 used:",
-  GAMES_FINISHED: "Games finished: ",
-  IRON_MAN_ATTEMPTS: "Iron Man attempts: ",
+  GAMES_FINISHED: "All games finished:",
+  IRON_MAN_ATTEMPTS: "Iron Man attempts:",
   REGION: "Change capital to region",
-  REGION_DESC: "Choose a region of a country instead of a capital."
+  REGION_DESC: "Choose a region of a country instead of a capital.",
+  IRON_MAN_FINISHED: "Iron Man games finished:"
 };
 
 export const interfaceRU = {
@@ -74,10 +75,11 @@ export const interfaceRU = {
   All_TIME_RIGHT_ANSWERS: "Верных ответов за всё время:",
   All_TIME_WRONG_ANSWERS: "Неверных ответов за всё время:",
   RIGHT_ANSWERS_ON_AVERAGE: "Верных ответов в среднем, %",
-  LONGEST_IRON_MAN: "Лучший результат ЖЯ: ",
+  LONGEST_IRON_MAN: "Лучший результат ЖЧ: ",
   OPTION5050_USED: "50/50 использовано:",
-  GAMES_FINISHED: "Всего игр закончено: ",
-  IRON_MAN_ATTEMPTS: "Количество ЖЯ попыток: ",
+  GAMES_FINISHED: "Всего игр закончено:",
+  IRON_MAN_ATTEMPTS: "Количество ЖЧ попыток:",
   REGION: "Регион вместо столицы",
-  REGION_DESC: "Отгадайте регион страны вместо столицы."
+  REGION_DESC: "Отгадайте регион страны вместо столицы.",
+  IRON_MAN_FINISHED: "ЖЧ игр закончено:"
 };

@@ -55,7 +55,7 @@ import {
 import {
   setIsButtonClicked,
   setLocalStorageData,
-  setShowFade
+  setShowFade,
 } from "./features/utilities/utilitiesSlice";
 
 function App() {
@@ -251,6 +251,7 @@ function App() {
       localStorage.gamesFinished = Number(localStorage.gamesFinished) + 1;
       if (ironMan) {
         ironManToLocalStorage();
+        localStorage.ironManFinished = Number(localStorage.ironManFinished) + 1;
       }
       dispatch(setMain(false));
       dispatch(setFinish(true));
@@ -320,7 +321,7 @@ function App() {
     if (ironMan) {
       localStorage.ironManAttempts = Number(localStorage.ironManAttempts) + 1;
     }
-    
+
     quiz();
   }
 
