@@ -38,11 +38,12 @@ export const interfaceEN = {
   IRON_MAN_ATTEMPTS: "Iron Man attempts:",
   REGION: "Change capital to region",
   REGION_DESC: "Choose a region of a country instead of a capital.",
-  IRON_MAN_FINISHED: "Iron Man games finished:"
+  IRON_MAN_FINISHED: "Iron Man games finished:",
+  CLEAR_STATISTICS: "Clear statistics"
 };
 
 export const interfaceRU = {
-  MAIN_TITLE: "Столица Квиз 3.0",
+  MAIN_TITLE: "Капитальный 3.0",
   OPTIONS: "Настройки",
   IRON_MAN_MODE: "Железный Человек",
   IRON_MAN_MODE_DESC: "Одна ошибка и проигрыш. 50/50 не работает.",
@@ -81,5 +82,6 @@ export const interfaceRU = {
   IRON_MAN_ATTEMPTS: "Количество ЖЧ попыток:",
   REGION: "Регион вместо столицы",
   REGION_DESC: "Отгадайте регион страны вместо столицы.",
-  IRON_MAN_FINISHED: "ЖЧ игр закончено:"
+  IRON_MAN_FINISHED: "ЖЧ игр закончено:",
+  CLEAR_STATISTICS: "Очистить"
 };

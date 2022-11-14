@@ -66,7 +66,7 @@ const Options = ({ startQuiz }) => {
           exit: 450,
         }}
       >
-        <Typography variant="h3" sx={{ position: "relative", top: -5, mb: 1 }}>
+        <Typography variant="h3" sx={styles.title_top}>
           {interfaceText.OPTIONS}
         </Typography>
       </Fade>
@@ -174,6 +174,7 @@ const Options = ({ startQuiz }) => {
       <br />
       <Button
         variant="contained"
+        sx={styles.btn}
         onClick={() => {
           dispatch(setOptions(false));
           dispatch(setModal(false));

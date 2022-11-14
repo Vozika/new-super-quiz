@@ -17,7 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { styles } from "../../styles";
 import { resetLocalStorageData } from "../../features/utilities/utilitiesSlice";
 
-import { setStatistics, setOptions } from "../../features/options/optionsSlice";
+import { setStatistics } from "../../features/options/optionsSlice";
 
 import { setModal } from "../../features/structure/structureSlice";
 
@@ -56,10 +56,12 @@ const Statistics = ({ toLocalStorage }) => {
       interfaceText.IRON_MAN_ATTEMPTS,
       localStorageData.ironManAttempts
     ),
-    createData(interfaceText.IRON_MAN_FINISHED, localStorageData.ironManFinished),
+    createData(
+      interfaceText.IRON_MAN_FINISHED,
+      localStorageData.ironManFinished
+    ),
     createData(interfaceText.OPTION5050_USED, localStorageData.option5050),
     createData(interfaceText.GAMES_FINISHED, localStorageData.gamesFinished),
-    
   ];
 
   return (
@@ -84,7 +86,7 @@ const Statistics = ({ toLocalStorage }) => {
         >
           <Typography
             variant="h3"
-            sx={{ position: "relative", top: -5, mb: 1 }}
+            sx={styles.title_top}
           >
             {interfaceText.STATISTICS}
           </Typography>
@@ -123,6 +125,7 @@ const Statistics = ({ toLocalStorage }) => {
         <br />
         <Button
           variant="contained"
+          sx={styles.btn}
           size="large"
           onClick={() => {
             localStorage.clear();
@@ -130,7 +133,7 @@ const Statistics = ({ toLocalStorage }) => {
             dispatch(resetLocalStorageData());
           }}
         >
-          Clear Statistics
+          {interfaceText.CLEAR_STATISTICS}
         </Button>
       </Box>
     </>

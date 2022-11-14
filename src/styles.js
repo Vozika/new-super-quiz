@@ -9,9 +9,9 @@ export const styles = {
       xs: "100%",
       xl: "25%",
     },
-    lineHeight: 1,
+    lineHeight: 1.2,
     height: 50,
-    letterSpacing: 1
+    letterSpacing: 1,
   },
   btn_outlined: {
     width: {
@@ -20,7 +20,7 @@ export const styles = {
     },
     lineHeight: 1,
     height: 50,
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   box: {
     p: 3,
@@ -83,6 +83,7 @@ export const styles = {
     fontWeight: "400",
     fontSize: "1.3rem",
     justifyContent: "center",
+    mb: 0,
   },
   divider: {
     mt: 2,
@@ -96,9 +97,14 @@ export const styles = {
     fontSize: {
       xs: 40,
       sm: 80,
-      xl: 120
+      xl: 120,
     },
     fontWeight: "400",
-    mt: 1.5
-  }
+    mt: 1.6,
+  },
+  title_top: {
+    position: "relative",
+    top: -5,
+    mb: 1,
+  },
 };

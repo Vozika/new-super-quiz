@@ -19,12 +19,12 @@ import Modal from "@mui/material/Modal";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
+import Stack from "@mui/material/Stack";
 
 import Options from "../options/Options";
 import Statistics from "../statistics/Statistics";
 
 import { styles } from "../../styles";
-import { Stack } from "@mui/material";
 
 const Start = ({ startQuiz, toLocalStorage }) => {
   const { interfaceText, options } = useSelector((store) => store.options);
@@ -33,7 +33,7 @@ const Start = ({ startQuiz, toLocalStorage }) => {
   const dispatch = useDispatch();
 
   return (
-    <div>
+    <Stack>
       <Fade
         in={showFade}
         timeout={{
@@ -113,7 +113,7 @@ const Start = ({ startQuiz, toLocalStorage }) => {
           {interfaceText.CHANGE_LANGUAGE}
         </Button>
       </Stack>
-    </div>
+    </Stack>
   );
 };
 
